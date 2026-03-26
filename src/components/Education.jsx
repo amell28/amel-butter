@@ -6,7 +6,6 @@ const Education = () => {
         <div className="education-degree">D4 Sistem Informasi</div>
         <div className="education-institution">Politeknik Caltex Riau</div>
         <div className="education-year">2024 - 2028</div>
-        <div className="education-desc">IPK: 3.44</div>
       </div>
       <div className="education-item">
         <div className="education-degree">MA Negri 1 Pekanbaru</div>

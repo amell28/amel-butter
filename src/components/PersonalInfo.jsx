@@ -22,10 +22,6 @@ const PersonalInfo = () => {
         <span className="info-label">Jenis Kelamin:</span>
         <span className="info-value">Perempuan</span>
       </div>
-      <div className="info-item">
-        <span className="info-label">Kewarganegaraan:</span>
-        <span className="info-value">Indonesia</span>
-      </div>
     </div>
   )
 }
