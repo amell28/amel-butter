@@ -1,236 +1,98 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Styling LokerForm.css */
+
+.loker-wrapper {
+    background-color: #f0f2f5; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
-  font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
-  background: #ebeec2;
-  min-height: 100vh;
-  padding: 2rem 1rem;
+.form-container {
+    background-color: #ffffff; 
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 35px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
 }
 
-/* Container utama */
-.biodata-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: #f9fbf8;
-  border-radius: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+.form-container h2 {
+    text-align: center;
+    color: #344054;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 25px;
 }
 
-/* Header */
-.biodata-header {
-  background: #d5c212;
-  padding: 2rem 2rem 1.5rem;
-  text-align: center;
-  border-bottom: 1px solid #eef2f6;
+.input-group {
+    margin-bottom: 15px;
 }
 
-.biodata-header h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #1a2c3e;
-  margin-bottom: 0.5rem;
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #344054;
+    font-weight: 500;
 }
 
-.biodata-header p {
-  font-size: 1rem;
-  color: #6c7a8e;
+.input-group input, 
+.input-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background-color: #f8fafc;
+    color: #101828;
+    transition: all 0.2s ease;
 }
 
-/* Konten utama */
-.biodata-content {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 2rem;
-  padding: 2rem;
+.input-group input:focus, 
+.input-group select:focus {
+    outline: none;
+    border-color: #1ba94c;
+    background-color: #ffffff;
 }
 
-@media (max-width: 768px) {
-  .biodata-content {
-    grid-template-columns: 1fr;
-    padding: 1.5rem;
-    gap: 1.5rem;
-  }
+.btn-simpan {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #1ba94c; 
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-/* Kolom kiri dan kanan */
-.left-column,
-.right-column {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.btn-simpan:hover {
+    background-color: #158a3e; 
 }
 
-/* ========== COMPONENT STYLES ========== */
-
-/* Kartu profil */
-.profile-image {
-  text-align: center;
-  padding: 1.5rem;
-  background: #eae3a7;
-  border: 1px solid #eef2f6;
-  border-radius: 20px;
+/* Kotak Hasil */
+.hasil-card {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    border-radius: 6px;
+    color: #2e7d32;
 }
 
-.profile-image img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #eef2f6;
+.hasil-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
 }
 
-.profile-image h3 {
-  margin-top: 1rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1a2c3e;
-}
-
-/* Kartu informasi umum */
-.personal-info,
-.contact-info,
-.education,
-.skills,
-.social-links {
-  background: #eae3a7;
-  border: 1px solid #eef2f6;
-  border-radius: 20px;
-  padding: 1.25rem;
-}
-
-.personal-info h2,
-.contact-info h2,
-.education h2,
-.skills h2,
-.social-links h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #f0f2f5;
-}
-
-/* Item informasi pribadi */
-.info-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-}
-
-.info-icon {
-  font-size: 1rem;
-  min-width: 28px;
-  color: #7f8c8d;
-}
-
-.info-label {
-  font-weight: 500;
-  color: #4a5568;
-  min-width: 85px;
-}
-
-.info-value {
-  color: #2d3748;
-  flex: 1;
-}
-
-/* Kontak */
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-}
-
-.contact-icon {
-  font-size: 1rem;
-  min-width: 28px;
-  color: #7f8c8d;
-}
-
-.contact-text {
-  color: #4a5568;
-}
-
-/* Pendidikan */
-.education-item {
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #f0f2f5;
-}
-
-.education-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.education-degree {
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 0.25rem;
-}
-
-.education-institution {
-  font-size: 0.85rem;
-  color: #5a6e8a;
-  margin-bottom: 0.25rem;
-}
-
-.education-year {
-  font-size: 0.8rem;
-  color: #8e9aaf;
-}
-
-/* Skills */
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.skill-tag {
-  background: #f0f4f9;
-  color: #2c3e50;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-/* Social Links */
-.social-icons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
-}
-
-.social-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 1rem;
-  background: #f8fafc;
-  color: #4a5568;
-  text-decoration: none;
-  border-radius: 30px;
-  font-size: 0.85rem;
-  border: 1px solid #e2e8f0;
-  transition: all 0.2s;
-}
-
-.social-link:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
+.hasil-card p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #333;
 }
