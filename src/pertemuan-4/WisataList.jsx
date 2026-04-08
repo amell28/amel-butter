@@ -82,9 +82,9 @@ export default function WisataApp() {
               <tr>
                 <th className="p-4">ID</th>
                 <th className="p-4">Nama</th>
-                <th className="p-4">Lokasi (Nested)</th>
-                <th className="p-4">Fasilitas (Nested)</th>
-                <th className="p-4">Operasional (Nested)</th>
+                <th className="p-4">Lokasi </th>
+                <th className="p-4">Fasilitas </th>
+                <th className="p-4">Operasional </th>
                 <th className="p-4">Harga</th>
               </tr>
             </thead>
