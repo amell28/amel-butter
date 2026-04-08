@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "name": "Candi Borobudur",
+    "category": "Sejarah",
+    "description": "Candi Buddha terbesar di dunia di Magelang.",
+    "price": 50000,
+    "image": "https://cdn2.wanderlust.co.uk/media/1007/cropped-shutterstock_1141713023.jpg?anchor=center&mode=crop&width=1600&height=0&format=auto&quality=90&rnd=132283998290000000",
+    "location": { "provinsi": "Jawa Tengah", "kota": "Magelang" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "07:00", "tutup": "17:00" }
+  },
+  {
+    "id": 2,
+    "name": "Pulau Padar",
+    "category": "Alam",
+    "description": "Bukit dengan pemandangan tiga teluk ikonik.",
+    "price": 150000,
+    "image": "https://wallpaperaccess.com/full/4632387.jpg",
+    "location": { "provinsi": "NTT", "kota": "Labuan Bajo" },
+    "facilities": { "parkir": false, "toilet": "Tidak Ada" },
+    "info": { "buka": "05:00", "tutup": "18:00" }
+  },
+  {
+    "id": 3,
+    "name": "Kawah Ijen",
+    "category": "Alam",
+    "description": "Gunung berapi dengan fenomena Blue Fire.",
+    "price": 20000,
+    "image": "https://i.natgeofe.com/n/6e68cf73-7196-43af-b23c-116fca625865/75879.jpg",
+    "location": { "provinsi": "Jawa Timur", "kota": "Banyuwangi" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "02:00", "tutup": "12:00" }
+  },
+  {
+    "id": 4,
+    "name": "Tana Toraja",
+    "category": "Budaya",
+    "description": "Kawasan budaya dengan tradisi pemakaman unik.",
+    "price": 30000,
+    "image": "https://media.istockphoto.com/id/1133207816/id/foto/indonesia-sulawesi-tana-toraja-traditional-village.jpg?s=612x612&w=0&k=20&c=OAAuGI6EEJ5F40r5ugKln1_rpvgO2hE2ufV1Hd4lUgs=",
+    "location": { "provinsi": "Sulawesi Selatan", "kota": "Makale" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "08:00", "tutup": "16:00" }
+  },
+  {
+    "id": 5,
+    "name": "Danau Toba",
+    "category": "Alam",
+    "description": "Danau vulkanik terbesar dengan Pulau Samosir.",
+    "price": 10000,
+    "image": "https://wallpapercave.com/wp/wp10273541.jpg",
+    "location": { "provinsi": "Sumatera Utara", "kota": "Parapat" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 6,
+    "name": "Ngarai Sianok",
+    "category": "Alam",
+    "description": "Lembah curam yang indah di Bukittinggi.",
+    "price": 15000,
+    "image": "https://img.okezone.com/content/2018/10/08/406/1961107/wisata-nuansa-tempoe-doloe-di-ngarai-sianok-sumatera-barat-5XnS8lVgsf.jpg",
+    "location": { "provinsi": "Sumatera Barat", "kota": "Bukittinggi" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "08:00", "tutup": "18:00" }
+  },
+  {
+    "id": 7,
+    "name": "Pantai Kuta",
+    "category": "Alam",
+    "description": "Pantai populer untuk berselancar dan sunset.",
+    "price": 0,
+    "image": "https://jelajahalamindonesia.com/wp-content/uploads/2025/01/wisata-pantai-kuta-bali.jpg",
+    "location": { "provinsi": "Bali", "kota": "Badung" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 8,
+    "name": "Candi Prambanan",
+    "category": "Sejarah",
+    "description": "Kompleks candi Hindu terbesar di Indonesia.",
+    "price": 50000,
+    "image": "https://cdn.pixabay.com/photo/2016/04/01/22/16/prambanan-1301726_1280.jpg",
+    "location": { "provinsi": "Yogyakarta", "kota": "Sleman" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "06:30", "tutup": "17:00" }
+  },
+  {
+    "id": 9,
+    "name": "Gunung Bromo",
+    "category": "Alam",
+    "description": "Gunung berapi aktif dengan lautan pasir luas.",
+    "price": 35000,
+    "image": "https://images.alphacoders.com/561/561157.jpg",
+    "location": { "provinsi": "Jawa Timur", "kota": "Probolinggo" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 10,
+    "name": "Raja Ampat",
+    "category": "Alam",
+    "description": "Kepulauan dengan biodiversitas laut tertinggi.",
+    "price": 1000000,
+    "image": "https://wallpapercave.com/wp/wp4190806.jpg",
+    "location": { "provinsi": "Papua Barat", "kota": "Waisai" },
+    "facilities": { "parkir": false, "toilet": "Terbatas" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 11,
+    "name": "Taman Mini",
+    "category": "Budaya",
+    "description": "Rangkuman kebudayaan Indonesia dalam satu taman.",
+    "price": 25000,
+    "image": "https://anekatempatwisata.com/wp-content/uploads/2018/04/Taman-Mini-Indonesia-Indah.jpg",
+    "location": { "provinsi": "DKI Jakarta", "kota": "Jakarta Timur" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "06:00", "tutup": "20:00" }
+  },
+  {
+    "id": 12,
+    "name": "Wakatobi",
+    "category": "Alam",
+    "description": "Taman Nasional dengan terumbu karang indah.",
+    "price": 160000,
+    "image": "https://www.pesonaindo.com/wp-content/uploads/2016/04/Paket-Wisata-Wakatobi-Pesona-Indonesia-fototrip-1.jpg",
+    "location": { "provinsi": "Sulawesi Tenggara", "kota": "Wangi-Wangi" },
+    "facilities": { "parkir": false, "toilet": "Terbatas" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 13,
+    "name": "Mandalika",
+    "category": "Modern",
+    "description": "Kawasan wisata terintegrasi dengan sirkuit balap.",
+    "price": 0,
+    "image": "https://wallpaperaccess.com/full/9266829.jpg",
+    "location": { "provinsi": "NTB", "kota": "Lombok Tengah" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 14,
+    "name": "Kepulauan Derawan",
+    "category": "Alam",
+    "description": "Gugusan pulau dengan danau ubur-ubur langka.",
+    "price": 200000,
+    "image": "https://img.herstory.co.id/articles/archive_20210414/pulau-derawan-20210414-130341.jpg",
+    "location": { "provinsi": "Kalimantan Timur", "kota": "Berau" },
+    "facilities": { "parkir": false, "toilet": "Terbatas" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 15,
+    "name": "Kota Tua Jakarta",
+    "category": "Sejarah",
+    "description": "Kawasan peninggalan Belanda sejarah Jakarta.",
+    "price": 5000,
+    "image": "https://1.bp.blogspot.com/-lP08yhsyi1A/XcaQHTydQkI/AAAAAAAATG0/fKPMNUxaUrs0sgoYctl0YY8rn9hXBpBSgCEwYBhgL/s1600/image1.jpg",
+    "location": { "provinsi": "DKI Jakarta", "kota": "Jakarta Barat" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "09:00", "tutup": "18:00" }
+  },
+  {
+    "id": 16,
+    "name": "Bunaken",
+    "category": "Alam",
+    "description": "Taman Nasional Laut keanekaragaman ikan.",
+    "price": 50000,
+    "image": "https://4.bp.blogspot.com/-l65mzz1V5Ho/UwOlBrRWoKI/AAAAAAAAALE/OqNeAnM289I/s1600/Indonesia-North-Sulawesi-Bunaken-Manado-Tua-Reef-011-1200x800.jpg",
+    "location": { "provinsi": "Sulawesi Utara", "kota": "Manado" },
+    "facilities": { "parkir": false, "toilet": "Terbatas" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 17,
+    "name": "Gili Trawangan",
+    "category": "Alam",
+    "description": "Pulau tanpa kendaraan bermotor, pantai putih.",
+    "price": 0,
+    "image": "https://www.balifast.com/blog/wp-content/uploads/2025/06/Gili-Trawangan-Lombok-1-1.jpg",
+    "location": { "provinsi": "NTB", "kota": "Lombok Utara" },
+    "facilities": { "parkir": false, "toilet": "Ada" },
+    "info": { "buka": "24 Jam", "tutup": "24 Jam" }
+  },
+  {
+    "id": 18,
+    "name": "Kawah Putih",
+    "category": "Alam",
+    "description": "Danau kawah putih kehijauan di Ciwidey.",
+    "price": 27000,
+    "image": "https://www.agoda.com/wp-content/uploads/2024/07/Kawah-Putih-Bandung-Indonesia.jpg",
+    "location": { "provinsi": "Jawa Barat", "kota": "Bandung" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "07:00", "tutup": "17:00" }
+  },
+  {
+    "id": 19,
+    "name": "Pura Uluwatu",
+    "category": "Budaya",
+    "description": "Pura di atas tebing dengan Tari Kecak.",
+    "price": 30000,
+    "image": "https://yachtsourcing.com/wp-content/uploads/uluwatu-temple-badung-bali-66cc33a391958-1-1024x683.webp",
+    "location": { "provinsi": "Bali", "kota": "Badung" },
+    "facilities": { "parkir": true, "toilet": "Ada" },
+    "info": { "buka": "09:00", "tutup": "19:00" }
+  },
+  {
+    "id": 20,
+    "name": "Pink Beach",
+    "category": "Alam",
+    "description": "Pantai pasir berwarna merah muda unik.",
+    "price": 150000,
+    "image": "https://ekaputrawisata.com/wp-content/uploads/2025/04/Pink-Beach-1.webp",
+    "location": { "provinsi": "NTT", "kota": "Labuan Bajo" },
+    "facilities": { "parkir": false, "toilet": "Tidak Ada" },
+    "info": { "buka": "05:00", "tutup": "18:00" }
+  }
+]
