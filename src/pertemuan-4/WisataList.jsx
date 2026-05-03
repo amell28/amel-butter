@@ -56,7 +56,7 @@ export default function WisataApp() {
 
       {/* KONDISI TAMPILAN */}
       {view === "guest" ? (
-        /* GUEST VIEW: GRID CARDS (Sesuai Gambar) */
+        /* GUEST VIEW: GRID CARDS  */
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredData.map((item) => (
             <div key={item.id} className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-xl">
@@ -75,7 +75,7 @@ export default function WisataApp() {
           ))}
         </div>
       ) : (
-        /* ADMIN VIEW: TABLE (Sesuai Gambar) */
+        /* ADMIN VIEW: TABLE  */
         <div className="bg-white rounded-2xl shadow overflow-x-auto border">
           <table className="w-full text-left border-collapse">
             <thead className="bg-emerald-600 text-white">
