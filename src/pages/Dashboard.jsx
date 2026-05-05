@@ -11,11 +11,11 @@ const C = {
   deeper:  "#2c3619",
   pale:    "#f0f4e4",
   mist:    "#e4eccc",
-  cream:   "#faf8f3",
+  cream:   "#F3EBD8",
   ink:     "#2a2e1e",
   soft:    "#5a6040",
   faint:   "#8a9170",
-  muted:   "#b8bfaa",
+  muted:   "#B6BB79",
 };
 
 // ─── Data ───────────────────────────────────────────────────
@@ -158,7 +158,7 @@ export default function Dashboard() {
     }}>
 
       {/* ── Page header ── */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 32, flexWrap: "wrap", gap: 16 }}>
+      <div style={{fontFamily: "Oswald", display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 32, flexWrap: "wrap", gap: 16 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
             {icons.leaf(C.bloom)}
@@ -169,7 +169,7 @@ export default function Dashboard() {
           <h1 style={{ fontSize: 28, fontWeight: 700, color: C.ink, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
             Dashboard Overview
           </h1>
-          <p style={{ fontSize: 13.5, color: C.faint, marginTop: 6 }}>
+          <p style={{ fontFamily: "Aldarich", fontSize: 13.5, color: C.faint, marginTop: 6 }}>
             Welcome back — here's what's happening at BloomBites today.
           </p>
         </div>
@@ -208,7 +208,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── KPI Row ── */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 28 }}>
+      <div style={{ fontFamily: "Oswald", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 28 }}>
         <KpiCard icon={icons.cart}  value="1,050"    label="Total Orders"   delta={8}   iconBg="#e8f0fb" iconColor="#4a7fd4" />
         <KpiCard icon={icons.check} value="985"      label="Completed"      delta={12}  iconBg="#edf7ee" iconColor="#3a8a3a" />
         <KpiCard icon={icons.x}     value="65"       label="Cancelled"      delta={-3}  iconBg="#fdf0f0" iconColor="#cc4444" />
@@ -216,7 +216,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── Charts + Bestsellers ── */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 340px", gap: 20, marginBottom: 24 }}>
+      <div style={{ fontFamily: "Oswald", display: "grid", gridTemplateColumns: "1fr 1fr 340px", gap: 20, marginBottom: 24 }}>
 
         {/* Line chart */}
         <Card>
@@ -277,7 +277,7 @@ export default function Dashboard() {
           <CardHeader
             title="Best Sellers"
             action={
-              <button style={{ fontSize: 12.5, fontWeight: 600, color: C.bloom, background: "none", border: "none", cursor: "pointer" }}>
+              <button style={{ fontFamily: "Oswald", fontSize: 12.5, fontWeight: 600, color: C.bloom, background: "none", border: "none", cursor: "pointer" }}>
                 View All
               </button>
             }
@@ -330,12 +330,12 @@ export default function Dashboard() {
         <CardHeader
           title="Recent Orders"
           action={
-            <button style={{ fontSize: 12.5, fontWeight: 600, color: C.bloom, background: "none", border: "none", cursor: "pointer" }}>
+            <button style={{ fontFamily: "Oswald", fontSize: 12.5, fontWeight: 600, color: C.bloom, background: "none", border: "none", cursor: "pointer" }}>
               View All Orders
             </button>
           }
         />
-        <div style={{ padding: "16px 0 0" }}>
+        <div style={{ fontFamily: "Oswald", padding: "16px 0 0" }}>
           {/* Table head */}
           <div style={{
             display: "grid", gridTemplateColumns: "110px 1fr 1.4fr 120px 110px",

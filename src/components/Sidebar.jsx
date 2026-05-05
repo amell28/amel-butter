@@ -75,7 +75,7 @@ function NavItem({ to, end, icon, label, badge }) {
       to={to}
       end={end}
       className={({ isActive }) =>
-        `flex items-center gap-2.5 px-3 py-[9px] rounded-[10px] text-[13.5px] font-medium mb-0.5 border transition-all duration-200 no-underline
+        `flex items-center gap-2.5 px-3 py-[9px] rounded-[10px] text-[13.5px] font-Aldarich font-medium mb-0.5 border transition-all duration-200 no-underline
         ${isActive
           ? "text-white border-transparent"
           : "border-transparent hover:border-[rgba(135,155,84,0.2)]"

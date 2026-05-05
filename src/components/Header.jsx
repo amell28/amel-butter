@@ -7,7 +7,7 @@ const C = {
   light:   "#a8bc72",
   pale:    "#f0f4e4",
   mist:    "#e4eccc",
-  cream:   "#faf8f3",
+  cream:   "#F3EBD8",
   ink:     "#2a2e1e",
   soft:    "#5a6040",
   faint:   "#8a9170",
@@ -52,8 +52,8 @@ export default function Header() {
           <FlowerIcon />
         </div>
         <div>
-          <p className="font-['Playfair_Display'] font-semibold text-[21px] leading-none tracking-[-0.01em]" style={{ color: C.deeper }}>
-            Bloom<em className="not-italic font-['Playfair_Display'] italic font-medium" style={{ color: C.bloom }}>Bites</em>
+          <p className="font-['Oswald'] font-semibold text-[21px] leading-none tracking-[-0.01em]" style={{ color: C.deeper }}>
+            Bloom<em className="not-italic font-['Oswald'] italic font-medium" style={{ color: C.bloom }}>Bites</em>
           </p>
           <p className="text-[10px] font-medium uppercase tracking-[0.1em] mt-0.5" style={{ color: C.faint }}>
             Admin Panel
@@ -74,13 +74,13 @@ export default function Header() {
           type="text"
           placeholder="Search menu, orders, ingredients…"
           className="w-full h-10 pl-[38px] pr-[76px] rounded-[10px] text-[13px] outline-none transition-all duration-200"
-          style={{ background: "#fff", border: "1px solid rgba(135,155,84,0.25)", color: C.ink, fontFamily: "inherit" }}
+          style={{ background: "#fff", border: "1px solid rgba(135,155,84,0.25)", color: C.ink, fontFamily: "Aldarich" }}
           onFocus={e => { e.target.style.borderColor = C.bloom; e.target.style.boxShadow = "0 0 0 3px rgba(135,155,84,0.1)"; }}
           onBlur={e => { e.target.style.borderColor = "rgba(135,155,84,0.25)"; e.target.style.boxShadow = "none"; }}
         />
         <div className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden md:flex gap-1">
           {["⌘","K"].map(k => (
-            <span key={k} className="px-1.5 py-0.5 rounded-[5px] text-[10px] font-semibold" style={{ background: C.pale, border: "1px solid rgba(135,155,84,0.3)", color: C.dark }}>
+            <span key={k} className="px-1.5 py-0.5 rounded-[5px] text-[10px] font-Aldarich font-semibold" style={{ background: C.pale, border: "1px solid rgba(135,155,84,0.3)", color: C.dark }}>
               {k}
             </span>
           ))}
@@ -88,10 +88,10 @@ export default function Header() {
       </div>
 
       {/* ── Right ── */}
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center font-Aldarich gap-1.5">
 
         {/* Live badge */}
-        <div className="hidden sm:flex items-center gap-1.5 px-3 py-[5px] rounded-full text-[11px] font-semibold mr-1" style={{ background: C.pale, border: "1px solid rgba(135,155,84,0.3)", color: C.deeper }}>
+        <div className="hidden sm:flex items-center gap-1.5 px-3 py-[5px] rounded-full text-[11px] font-Aldarich font-semibold mr-1" style={{ background: C.pale, border: "1px solid rgba(135,155,84,0.3)", color: C.deeper }}>
           <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: C.bloom }} />
           Live
         </div>
@@ -149,7 +149,7 @@ export default function Header() {
         </button>
 
         {/* Mobile avatar only */}
-        <button className="md:hidden w-9 h-9 rounded-[10px] flex items-center justify-center text-[12px] font-semibold text-white" style={{ background: C.bloom }}>
+        <button className="md:hidden w-9 h-9 rounded-[10px] flex items-center justify-center text-[12px] font-Aldarich font-semibold text-white" style={{ background: C.bloom }}>
           MR
         </button>
 

@@ -12,7 +12,7 @@ export default function PageHeader({
       
       {/* Left Section: Title & Breadcrumb */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-[#2c3619] tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-['Oswald'] font-bold text-[#2c3619] tracking-tight">
           {title}
         </h1>
 

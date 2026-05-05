@@ -2,71 +2,43 @@ import { Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#E8EDDF] p-4 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-white p-4 sm:p-8 font-sans antialiased">
       
-      {/* Container Card Lebar */}
-      <div className="flex w-full max-w-5xl bg-white rounded-[2rem] shadow-2xl overflow-hidden min-h-[600px]">
+      {/* Container Utama: Menggunakan Flexbox untuk membagi Form dan Gambar */}
+      <div className="flex w-full max-w-[1200px] gap-12 items-center">
         
         {/* =========================================
-            LEFT SIDE: BRANDING (Murni CSS, Tanpa Foto Background)
+            LEFT SIDE: FORM AREA (Outlet)
             ========================================= */}
-        <div className="hidden md:flex flex-col justify-between w-1/2 bg-[#2c3619] p-12 text-white relative overflow-hidden">
-          {/* Aksen bulatan dekoratif (murni CSS) */}
-          <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-[#364322] rounded-full blur-3xl opacity-50"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-80 h-80 bg-[#1f2612] rounded-full blur-3xl opacity-50"></div>
-
-          {/* Logo & Brand Kiri Atas */}
-          <div className="relative z-10 flex items-center gap-3">
-            <img 
-              src="/img/logo.png" 
-              alt="BloomBites Logo" 
-              className="w-20 h-20 object-contain" 
-            />
-            <h1 className="text-3xl font-extrabold tracking-tight">
-              BloomBites<span className="text-[#879b54]"> Cafe</span>
-            </h1>
+        <div className="flex-1 flex flex-col justify-center py-10">
+          <div className="w-full max-w-[420px] mx-auto lg:ml-auto lg:mr-0">
+            <Outlet />
           </div>
           
-          {/* Teks Sambutan Tengah */}
-          <div className="relative z-10 space-y-6">
-            <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
-              Welcome to <br/>
-              <span className="text-[#879b54]">Admin Portal</span>
-            </h2>
-            <p className="text-[#c3ce9e] text-lg font-light max-w-sm leading-relaxed">
-              Manage your orders, menu, and customers efficiently in one seamless dashboard.
-            </p>
-          </div>
-
-          {/* Copyright Kiri Bawah */}
-          <div className="relative z-10 text-sm text-[#879b54] font-medium tracking-wide">
-            © 2025 BloomBites Cafe
+          {/* Footer Copyright di bawah Form sesuai Figma */}
+          <div className="mt-20 text-center lg:text-left lg:ml-auto lg:mr-0 w-full max-w-[420px]">
+             <p className="text-[11px] text-gray-300 font-medium tracking-widest uppercase">
+               © 2023 ALL RIGHTS RESERVED
+             </p>
           </div>
         </div>
 
         {/* =========================================
-            RIGHT SIDE: FORM AREA (Outlet)
+            RIGHT SIDE: IMAGE AREA (Art.jpg)
             ========================================= */}
-        <div className="w-full md:w-1/2 p-8 sm:p-12 lg:p-16 flex flex-col justify-center bg-white">
-          
-          {/* Logo untuk Mobile (Hanya muncul jika di HP) */}
-          <div className="md:hidden flex flex-col items-center justify-center mb-10 gap-3">
-            <img 
-              src="/img/logo.png" 
-              alt="BloomBites Logo" 
-              className="w-16 h-16 object-contain" 
-            />
-            <h1 className="text-3xl font-extrabold text-[#2c3619]">
-              BloomBites<span className="text-[#879b54]"> Cafe</span>
-            </h1>
+        <div className="hidden lg:block w-1/2 h-[85vh] sticky top-10">
+          <div 
+            className="w-full h-full rounded-[0px] shadow-2xl bg-cover bg-center overflow-hidden"
+            style={{ 
+              backgroundImage: "url('/img/Art.png')",
+              // Jika file-nya PNG, ganti jadi Art.png
+            }}
+          >
+            {/* Overlay halus opsional jika ingin sedikit efek kedalaman */}
+            <div className="w-full h-full bg-black/5"></div>
           </div>
-
-          {/* Area Render untuk Login / Register / Forgot */}
-          <div className="w-full max-w-md mx-auto">
-            <Outlet />
-          </div>
-
         </div>
+
       </div>
     </div>
   );

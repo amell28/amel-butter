@@ -1,18 +1,24 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: 'Barlow';
-    src: url('/fonts/Barlow-Regular.ttf');
+    font-family: 'Aldrich';
+    src: url('/fonts/Aldrich-Regular.ttf');
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('/fonts/Poppins-ExtraBold.ttf');
+    font-family: 'Oswald';
+    src: url('/fonts/Oswald-Regular.ttf');
 }
 
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Regular.ttf');
+}
 @theme {
-    --font-barlow: 'Barlow', sans-serif;
-    --font-poppins: 'Poppins', sans-serif;
+    --font-aldrich: 'Aldrich';
+    --font-oswald: 'Oswald';
+    --font-roboto: 'Roboto';
     --color-latar: #f3f4f6;
     --color-teks: #374151; 
     --color-teks-samping: #6b7280;
@@ -23,6 +29,3 @@
     --color-kuning: #f59e0b; 
 }
 
-body {
-    @apply font-barlow;
-}
