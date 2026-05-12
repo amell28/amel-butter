@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { FiSearch, FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import dataPesanan from "../data/pesanan.json";  
+import dataPesanan from "../data/Pesanan.json";  
 
 const ITEMS_PER_PAGE = 5;
 
