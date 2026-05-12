@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import dataPesanan from "../data/pesanan.json"
+import dataPesanan from "../data/Pesanan.json"
 
 export default function OrderDetail() {
   const { id } = useParams()
