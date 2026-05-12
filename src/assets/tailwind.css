@@ -2,18 +2,18 @@
 
 @font-face {
     font-family: 'Aldrich';
-    src: url('/font/Aldrich-Regular.ttf');
+    src: url('/fontss/Aldrich-Regular.ttf');
 }
 
 @font-face {
     font-family: 'Oswald';
-    src: url('/font/Oswald-Regular.ttf');
+    src: url('/fonts/Oswald-Regular.ttf');
 }
 
 
 @font-face {
     font-family: 'Roboto';
-    src: url('/font/Roboto-Regular.ttf');
+    src: url('/fonts/Roboto-Regular.ttf');
 }
 @theme {
     --font-aldrich: 'Aldrich';
