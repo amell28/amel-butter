@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "title": "Matcha Latte",
+    "code": "MT001",
+    "category": "Beverage",
+    "brand": "GreenLeaf",
+    "price": 35000,
+    "stock": 25,
+    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+  },
+  {
+    "id": 2,
+    "title": "Iced Matcha Latte",
+    "code": "MT002",
+    "category": "Beverage",
+    "brand": "GreenLeaf",
+    "price": 36000,
+    "stock": 30,
+    "image": "https://images.unsplash.com/photo-1617196037303-7f3c6c1a9d2a"
+  },
+  {
+    "id": 3,
+    "title": "Matcha Espresso Fusion",
+    "code": "MT003",
+    "category": "Beverage",
+    "brand": "CafeZen",
+    "price": 40000,
+    "stock": 20,
+    "image": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+  },
+  {
+    "id": 4,
+    "title": "Matcha Frappe",
+    "code": "MT004",
+    "category": "Beverage",
+    "brand": "CafeZen",
+    "price": 42000,
+    "stock": 18,
+    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+  },
+  {
+    "id": 5,
+    "title": "Hot Matcha Tea",
+    "code": "MT005",
+    "category": "Beverage",
+    "brand": "TeaHouse",
+    "price": 30000,
+    "stock": 40,
+    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+  },
+  {
+    "id": 6,
+    "title": "Matcha Smoothie",
+    "code": "MT006",
+    "category": "Beverage",
+    "brand": "TeaHouse",
+    "price": 45000,
+    "stock": 15,
+    "image": "https://images.unsplash.com/photo-1617196037303-7f3c6c1a9d2a"
+  },
+  {
+    "id": 7,
+    "title": "Matcha Lemonade",
+    "code": "MT007",
+    "category": "Beverage",
+    "brand": "FreshBrews",
+    "price": 38000,
+    "stock": 22,
+    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+  },
+  {
+    "id": 8,
+    "title": "Matcha Milk Tea",
+    "code": "MT008",
+    "category": "Beverage",
+    "brand": "FreshBrews",
+    "price": 37000,
+    "stock": 28,
+    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+  },
+  {
+    "id": 9,
+    "title": "Matcha Affogato",
+    "code": "MT009",
+    "category": "Dessert",
+    "brand": "SweetLeaf",
+    "price": 50000,
+    "stock": 12,
+    "image": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+  },
+  {
+    "id": 10,
+    "title": "Matcha Cheesecake",
+    "code": "MT010",
+    "category": "Dessert",
+    "brand": "SweetLeaf",
+    "price": 55000,
+    "stock": 10,
+    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+  },
+  {
+    "id": 11,
+    "title": "Matcha Brownies",
+    "code": "MT011",
+    "category": "Dessert",
+    "brand": "SweetLeaf",
+    "price": 45000,
+    "stock": 14,
+    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+  },
+  {
+    "id": 12,
+    "title": "Matcha Croissant",
+    "code": "MT012",
+    "category": "Pastry",
+    "brand": "BakeHouse",
+    "price": 32000,
+    "stock": 16,
+    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+  },
+  {
+    "id": 13,
+    "title": "Matcha Muffin",
+    "code": "MT013",
+    "category": "Pastry",
+    "brand": "BakeHouse",
+    "price": 30000,
+    "stock": 20,
+    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+  },
+  {
+    "id": 14,
+    "title": "Matcha Donut",
+    "code": "MT014",
+    "category": "Pastry",
+    "brand": "BakeHouse",
+    "price": 28000,
+    "stock": 25,
+    "image": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+  },
+  {
+    "id": 15,
+    "title": "Matcha Pancake",
+    "code": "MT015",
+    "category": "Dessert",
+    "brand": "SweetLeaf",
+    "price": 40000,
+    "stock": 18,
+    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+  },
+  {
+    "id": 16,
+    "title": "Matcha Ice Cream",
+    "code": "MT016",
+    "category": "Dessert",
+    "brand": "SweetLeaf",
+    "price": 35000,
+    "stock": 20,
+    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+  },
+  {
+    "id": 17,
+    "title": "Matcha Parfait",
+    "code": "MT017",
+    "category": "Dessert",
+    "brand": "SweetLeaf",
+    "price": 48000,
+    "stock": 12,
+    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+  },
+  {
+    "id": 18,
+    "title": "Matcha Pudding",
+    "code": "MT018",
+    "category": "Dessert",
+    "brand": "SweetLeaf",
+    "price": 33000,
+    "stock": 22,
+    "image": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+  },
+  {
+    "id": 19,
+    "title": "Matcha Roll Cake",
+    "code": "MT019",
+    "category": "Pastry",
+    "brand": "BakeHouse",
+    "price": 42000,
+    "stock": 15,
+    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+  },
+  {
+    "id": 20,
+    "title": "Matcha Tart",
+    "code": "MT020",
+    "category": "Pastry",
+    "brand": "BakeHouse",
+    "price": 39000,
+    "stock": 18,
+    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+  },
+  {
+    "id": 21,
+    "title": "Matcha Cupcake",
+    "code": "MT021",
+    "category": "Pastry",
+    "brand": "BakeHouse",
+    "price": 31000,
+    "stock": 20,
+    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+  }
+]

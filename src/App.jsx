@@ -11,6 +11,8 @@ const Orders = lazy(() => import("./pages/Orders"));
 const AddCustomer = lazy(() => import("./pages/AddCustomer"));
 const AddOrder = lazy(() => import("./pages/AddOrder"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
+const Pesanan = lazy(() => import("./pages/Pesanan"));
+const PesananDetail = lazy(() => import("./pages/PesananDetail"));
 
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
@@ -58,6 +60,10 @@ function App() {
           {/* Orders */}
           <Route path="/orders" element={<Orders />} />
           <Route path="/orders/add" element={<AddOrder />} />
+
+          {/* Pesanan */}
+          <Route path="/pesanan" element={<Pesanan />} />
+          <Route path="/pesanan/:id" element={<PesananDetail />} />
 
           {/* Error Pages inside Main Layout */}
           <Route path="/400" element={<ErrorPage code="400" />} />
