@@ -13,6 +13,7 @@ const AddOrder = lazy(() => import("./pages/AddOrder"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 const Pesanan = lazy(() => import("./pages/Pesanan"));
 const PesananDetail = lazy(() => import("./pages/PesananDetail"));
+const CustomerDetail = lazy(() => import("./pages/CustomerDetail"));
 
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
@@ -56,6 +57,7 @@ function App() {
           {/* Customers */}
           <Route path="/customers" element={<Customers />} />
           <Route path="/customers/add" element={<AddCustomer />} />
+          <Route path="/customerdetail" element={<CustomerDetail />} />
 
           {/* Orders */}
           <Route path="/orders" element={<Orders />} />

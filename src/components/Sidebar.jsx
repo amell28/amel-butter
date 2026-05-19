@@ -1,4 +1,5 @@
 import { BiFoodMenu } from "react-icons/bi";
+import { RiCustomerService2Line } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 
 const C = {
@@ -265,6 +266,9 @@ export default function Sidebar() {
           <NavItem to="/customers" icon={<CustomerIcon />} label="Customers" />
 
            <NavItem to="/pesanan" icon={<BiFoodMenu />} label="Pesanan" />
+
+           <NavItem to="/customerdetail" icon={<RiCustomerService2Line />} label="CustomerDetail" />
+
         </div>
 
         {/* Divider */}
