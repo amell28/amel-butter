@@ -163,7 +163,6 @@ export default function Loyalty() {
           </TableBody>
         </Table>
       </div>
-
     </div>
   );
 }
