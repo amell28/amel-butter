@@ -1,4 +1,5 @@
 import { BiFoodMenu } from "react-icons/bi";
+import { MdOutlineLoyalty } from "react-icons/md";
 import { RiCustomerService2Line } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 
@@ -269,6 +270,7 @@ export default function Sidebar() {
 
            <NavItem to="/customerdetail" icon={<RiCustomerService2Line />} label="CustomerDetail" />
 
+             <NavItem to="/loyalty" icon={<MdOutlineLoyalty />} label="Loyalty" />
         </div>
 
         {/* Divider */}
