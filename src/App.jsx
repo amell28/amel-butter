@@ -59,7 +59,7 @@ function App() {
           <Route path="/customers" element={<Customers />} />
           <Route path="/customers/add" element={<AddCustomer />} />
           <Route path="/customerdetail" element={<CustomerDetail />} />
-          <Route path="/loyalty" element={<Loyalty />} />
+          <Route path="/Loyalty" element={<Loyalty />} />
 
           {/* Orders */}
           <Route path="/orders" element={<Orders />} />

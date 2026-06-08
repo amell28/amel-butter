@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react"; // Mengimpor useState dan useRef dari React
 import { useNavigate } from "react-router-dom";
 import { 
   FiMail, FiPhone, FiCalendar, FiAward, 
@@ -26,6 +26,10 @@ import ActiveVoucherItem from "../components/ActiveVoucherItem";
 export default function CustomerDetail() {
   const navigate = useNavigate();
   const [newNote, setNewNote] = useState("");
+  
+  // Membuat referensi DOM untuk kolom input catatan
+  const noteInputRef = useRef(null);
+
   const [timeline, setTimeline] = useState([
     { id: 1, title: "Komplain Rasa Manis", desc: "Kasir mengonfirmasi bahwa pelanggan meminta takaran gula dikurangi 25% di order berikutnya.", time: "Hari ini, 10:20", type: "Complaint" },
     { id: 2, title: "Klaim Voucher Gold", desc: "Menukarkan kupon 'Free Croissant' di kasir utama.", time: "15 Mei 2026", type: "Reward" },
@@ -46,6 +50,11 @@ export default function CustomerDetail() {
 
     setTimeline([addedLog, ...timeline]);
     setNewNote("");
+
+    // Otomatis mengembalikan fokus kursor ke kotak input teks setelah tombol kirim diklik
+    if (noteInputRef.current) {
+      noteInputRef.current.focus();
+    }
   };
 
   return (
@@ -140,7 +149,7 @@ export default function CustomerDetail() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
-                  {/* 11. OrderRow Component (di dalamnya otomatis panggil 12. StatusBadge) */}
+                  {/* 11. OrderRow Component */}
                   <OrderRow id="#ORD-9831" items="2x Iced Matcha Latte (Oatmilk)" date="17 Mei 2026" total={72000} status="Completed" />
                   <OrderRow id="#ORD-9750" items="1x Matcha Croissant, 1x Espresso" date="12 Mei 2026" total={58000} status="Completed" />
                   <OrderRow id="#ORD-9612" items="1x Matcha Ice Cream Box" date="04 Mei 2026" total={120000} status="Completed" />
@@ -174,7 +183,9 @@ export default function CustomerDetail() {
             </div>
 
             {/* 15. CustomerNotesInput Component */}
+            {/* Mengirimkan noteInputRef sebagai properti inputRef */}
             <CustomerNotesInput 
+              inputRef={noteInputRef}
               value={newNote}
               onChange={(e) => setNewNote(e.target.value)}
               onSubmit={handleAddNote}

@@ -1,10 +1,12 @@
 import React from "react";
 import { FiSend } from "react-icons/fi";
 
-export default function CustomerNotesInput({ value, onChange, onSubmit }) {
+// 1. Tambahkan prop inputRef di sini
+export default function CustomerNotesInput({ value, onChange, onSubmit, inputRef }) {
   return (
     <form onSubmit={onSubmit} className="mt-4 flex gap-2">
       <input 
+        ref={inputRef}
         type="text" 
         placeholder="Ketik catatan interaksi baru (misal: Suka less sugar)..." 
         value={value}
