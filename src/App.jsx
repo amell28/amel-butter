@@ -15,6 +15,7 @@ const Pesanan = lazy(() => import("./pages/Pesanan"));
 const PesananDetail = lazy(() => import("./pages/PesananDetail"));
 const CustomerDetail = lazy(() => import("./pages/CustomerDetail"));
 const Loyalty = lazy(() => import("./pages/Loyalty"));
+const User = lazy(() => import("./pages/User"));
 
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
@@ -54,6 +55,7 @@ function App() {
           }
         >
           <Route path="/" element={<Dashboard />} />
+          <Route path="/user" element={<User />} />
 
           {/* Customers */}
           <Route path="/customers" element={<Customers />} />
