@@ -8,16 +8,8 @@ import {
   AiFillStar,
   AiOutlineMessage,
   AiOutlineQuestionCircle,
+  AiOutlineDown,
 } from "react-icons/ai";
-
-// Import Komponen Shadcn UI
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
 
 export default function GuestLanding() {
   const [emailInput, setEmailInput] = useState("");
@@ -25,6 +17,7 @@ export default function GuestLanding() {
   const [claimed, setClaimed] = useState(false);
 
   // State CRM & Interaktivitas
+  const [activeFaq, setActiveFaq] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [reviewName, setReviewName] = useState("");
   const [reviewText, setReviewText] = useState("");
@@ -52,7 +45,7 @@ export default function GuestLanding() {
   ]);
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
-  // Data Menu Premium Lengkap dengan Link Gambar Asli
+  // Data Menu Premium Lengkap
   const menuItems = [
     {
       name: "Matcha Latte Ice",
@@ -61,7 +54,6 @@ export default function GuestLanding() {
       tag: "Fresh Drink",
       category: "Drinks",
       isBestSeller: true,
-      image: "https://images.pexels.com/photos/5945903/pexels-photo-5945903.jpeg?auto=compress&cs=tinysrgb&w=500",
     },
     {
       name: "Matcha Mille Crepes",
@@ -70,7 +62,6 @@ export default function GuestLanding() {
       tag: "Signature Cake",
       category: "Cakes",
       isBestSeller: true,
-      image: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=600&auto=format&fit=crop&q=80",
     },
     {
       name: "Artisanal Butter Croissant",
@@ -79,7 +70,6 @@ export default function GuestLanding() {
       tag: "Warm Bakery",
       category: "Cakes",
       isBestSeller: true,
-      image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&auto=format&fit=crop&q=80",
     },
     {
       name: "Houjicha Latte Premium",
@@ -88,7 +78,6 @@ export default function GuestLanding() {
       tag: "Fresh Drink",
       category: "Drinks",
       isBestSeller: false,
-      image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600&auto=format&fit=crop&q=80",
     },
     {
       name: "Matcha Espresso Fusion",
@@ -97,7 +86,6 @@ export default function GuestLanding() {
       tag: "Specialty Coffee",
       category: "Drinks",
       isBestSeller: false,
-      image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&auto=format&fit=crop&q=80",
     },
     {
       name: "Genmaicha Cold Brew",
@@ -106,7 +94,6 @@ export default function GuestLanding() {
       tag: "Clear Tea",
       category: "Drinks",
       isBestSeller: false,
-      image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=600&auto=format&fit=crop&q=80",
     },
     {
       name: "Uji Matcha Tiramisu",
@@ -115,7 +102,6 @@ export default function GuestLanding() {
       tag: "Premium Dessert",
       category: "Cakes",
       isBestSeller: true,
-      image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80",
     },
     {
       name: "Matcha Pain au Chocolat",
@@ -124,7 +110,6 @@ export default function GuestLanding() {
       tag: "Warm Bakery",
       category: "Cakes",
       isBestSeller: false,
-      image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=600&auto=format&fit=crop&q=80",
     },
     {
       name: "Kyoto Matcha Brownies",
@@ -133,10 +118,10 @@ export default function GuestLanding() {
       tag: "Sweet Treats",
       category: "Cakes",
       isBestSeller: false,
-      image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&auto=format&fit=crop&q=80",
     },
   ];
 
+  // Filter menu berdasarkan kategori aktif
   const filteredMenu =
     selectedCategory === "All"
       ? menuItems
@@ -161,6 +146,10 @@ export default function GuestLanding() {
     ]);
     setReviewSubmitted(true);
     setReviewText("");
+  };
+
+  const toggleFaq = (index) => {
+    setActiveFaq(activeFaq === index ? null : index);
   };
 
   return (
@@ -189,7 +178,10 @@ export default function GuestLanding() {
             <a href="#promo" className="hover:text-[#3C4A22] transition-colors">
               Guest Voucher
             </a>
-            <a href="#reviews" className="hover:text-[#3C4A22] transition-colors">
+            <a
+              href="#reviews"
+              className="hover:text-[#3C4A22] transition-colors"
+            >
               Suara Pelanggan
             </a>
             <a href="#faq" className="hover:text-[#3C4A22] transition-colors">
@@ -197,18 +189,21 @@ export default function GuestLanding() {
             </a>
           </div>
 
-          <Button variant="outline" asChild className="rounded-full border-[#3C4A22] text-[#3C4A22] hover:bg-[#3C4A22] hover:text-[#F9F8F3]">
-            <a href="/login">Login</a>
-          </Button>
+          <a
+            href="/login"
+            className="inline-flex items-center gap-1.5 text-xs font-bold px-5 py-2.5 border-2 border-[#3C4A22] text-[#3C4A22] rounded-full hover:bg-[#3C4A22] hover:text-[#F9F8F3] transition-all duration-300 transform active:scale-95"
+          >
+            <span>Login</span>
+          </a>
         </div>
       </nav>
 
       {/* 🌿 HERO SECTION */}
       <header className="max-w-6xl mx-auto px-6 pt-16 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <div className="space-y-6 lg:col-span-7">
-          <Badge className="bg-[#879B54]/10 text-[#4C5E2D] hover:bg-[#879B54]/20 border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 bg-[#879B54]/10 text-[#4C5E2D] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
             🍃 Authentic Japanese Uji Matcha
-          </Badge>
+          </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-black text-[#3C4A22] leading-[1.15]">
             Sentuhan Kelembutan <br />
             <span className="text-[#879B54] italic font-normal">
@@ -224,29 +219,29 @@ export default function GuestLanding() {
             Crepes kami.
           </p>
           <div className="flex flex-wrap gap-4 pt-2">
-            <Button asChild size="lg" className="bg-[#3C4A22] text-[#F9F8F3] font-bold rounded-xl shadow-lg shadow-[#3C4A22]/20 hover:bg-[#4C5E2D]">
-              <a href="#menu">Jelajahi Menu Utama</a>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="bg-white border-[#3C4A22]/10 text-[#3C4A22] font-bold rounded-xl hover:bg-gray-50">
-              <a href="#promo">Ambil Voucher Diskon</a>
-            </Button>
+            <a
+              href="#menu"
+              className="px-8 py-3.5 bg-[#3C4A22] text-[#F9F8F3] font-bold rounded-xl text-sm shadow-lg shadow-[#3C4A22]/20 hover:bg-[#4C5E2D] hover:-translate-y-0.5 transition-all duration-200"
+            >
+              Jelajahi Menu Utama
+            </a>
+            <a
+              href="#promo"
+              className="px-8 py-3.5 bg-white border border-[#3C4A22]/10 text-[#3C4A22] font-bold rounded-xl text-sm hover:bg-gray-50 transition-all duration-200"
+            >
+              Ambil Voucher Diskon
+            </a>
           </div>
         </div>
 
-        {/* HERO IMAGE CARD */}
         <div className="lg:col-span-5 relative flex justify-center">
-          <div className="w-full max-w-[340px] aspect-[4/5] bg-[#3C4A22] rounded-[40px] rounded-tl-[120px] shadow-2xl relative overflow-hidden flex flex-col justify-end p-8 text-[#F9F8F3]">
-            {/* Tag <img> untuk background hero */}
-            <img 
-              src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=600&auto=format&fit=crop&q=80" 
-              alt="Premium Matcha Drink" 
-              className="absolute inset-0 w-full h-full object-cover opacity-75"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div className="w-full max-w-[340px] aspect-[4/5] bg-gradient-to-tr from-[#3C4A22] to-[#879B54] rounded-[40px] rounded-tl-[120px] shadow-2xl relative overflow-hidden flex flex-col justify-end p-8 text-[#F9F8F3]">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
             <div className="z-10 space-y-2">
-              <Badge className="bg-white/20 text-white hover:bg-white/30 border-none backdrop-blur-md font-bold px-2.5 py-1 rounded-full uppercase">
+              
+              <span className="text-[10px] bg-white/20 backdrop-blur-md text-white font-bold px-2.5 py-1 rounded-full uppercase">
                 Best Seller
-              </Badge>
+              </span>
               <h4 className="text-xl font-bold font-serif">
                 Matcha Mille Crepes
               </h4>
@@ -261,45 +256,39 @@ export default function GuestLanding() {
 
       {/* 🍦 FEATURED GALLERY */}
       <section className="max-w-6xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <Card className="bg-white border-[#3C4A22]/5 shadow-sm rounded-2xl">
-          <CardContent className="pt-6 flex gap-4 items-start">
-            <div className="p-3 bg-[#879B54]/10 text-[#3C4A22] rounded-xl">
-              <AiOutlineClockCircle className="text-xl" />
-            </div>
-            <div>
-              <h5 className="font-bold text-sm text-[#3C4A22]">Jam Operasional</h5>
-              <p className="text-xs text-[#3C4A22]/60 mt-1">
-                Setiap Hari (09:00 - 22:00 WIB)
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white border-[#3C4A22]/5 shadow-sm rounded-2xl">
-          <CardContent className="pt-6 flex gap-4 items-start">
-            <div className="p-3 bg-[#879B54]/10 text-[#3C4A22] rounded-xl">
-              <AiOutlineCompass className="text-xl" />
-            </div>
-            <div>
-              <h5 className="font-bold text-sm text-[#3C4A22]">Lokasi Kafe</h5>
-              <p className="text-xs text-[#3C4A22]/60 mt-1">
-                Jl. Matcha Raya No. 28, Jakarta
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white border-[#3C4A22]/5 shadow-sm rounded-2xl">
-          <CardContent className="pt-6 flex gap-4 items-start">
-            <div className="p-3 bg-[#879B54]/10 text-[#3C4A22] rounded-xl">
-              <AiOutlineInstagram className="text-xl" />
-            </div>
-            <div>
-              <h5 className="font-bold text-sm text-[#3C4A22]">Ikuti Media Sosial</h5>
-              <p className="text-xs text-[#3C4A22]/60 mt-1">
-                @bloombites.matchahouse
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="bg-white p-6 rounded-2xl border border-[#3C4A22]/5 shadow-sm flex gap-4 items-start">
+          <div className="p-3 bg-[#879B54]/10 text-[#3C4A22] rounded-xl">
+            <AiOutlineClockCircle className="text-xl" />
+          </div>
+          <div>
+            <h5 className="font-bold text-sm">Jam Operasional</h5>
+            <p className="text-xs text-[#3C4A22]/60 mt-1">
+              Setiap Hari (09:00 - 22:00 WIB)
+            </p>
+          </div>
+        </div>
+        <div className="bg-white p-6 rounded-2xl border border-[#3C4A22]/5 shadow-sm flex gap-4 items-start">
+          <div className="p-3 bg-[#879B54]/10 text-[#3C4A22] rounded-xl">
+            <AiOutlineCompass className="text-xl" />
+          </div>
+          <div>
+            <h5 className="font-bold text-sm">Lokasi Kafe</h5>
+            <p className="text-xs text-[#3C4A22]/60 mt-1">
+              Jl. Matcha Raya No. 28, Jakarta
+            </p>
+          </div>
+        </div>
+        <div className="bg-white p-6 rounded-2xl border border-[#3C4A22]/5 shadow-sm flex gap-4 items-start">
+          <div className="p-3 bg-[#879B54]/10 text-[#3C4A22] rounded-xl">
+            <AiOutlineInstagram className="text-xl" />
+          </div>
+          <div>
+            <h5 className="font-bold text-sm">Ikuti Media Sosial</h5>
+            <p className="text-xs text-[#3C4A22]/60 mt-1">
+              @bloombites.matchahouse
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* 🍰 SIGNATURE CATALOG MENU */}
@@ -318,59 +307,61 @@ export default function GuestLanding() {
             </p>
           </div>
 
-          {/* Shadcn UI Tabs untuk Filter Kategori */}
-          <Tabs defaultValue="All" value={selectedCategory} onValueChange={setSelectedCategory} className="w-full flex flex-col items-center mb-12">
-            <TabsList className="bg-[#F9F8F3] p-1 rounded-full border border-[#3C4A22]/5">
-              <TabsTrigger value="All" className="rounded-full px-5 py-2 text-xs font-bold data-[state=active]:bg-[#3C4A22] data-[state=active]:text-[#F9F8F3]">
-                Semua Menu
-              </TabsTrigger>
-              <TabsTrigger value="Drinks" className="rounded-full px-5 py-2 text-xs font-bold data-[state=active]:bg-[#3C4A22] data-[state=active]:text-[#F9F8F3]">
-                Minuman Segar
-              </TabsTrigger>
-              <TabsTrigger value="Cakes" className="rounded-full px-5 py-2 text-xs font-bold data-[state=active]:bg-[#3C4A22] data-[state=active]:text-[#F9F8F3]">
-                Kue & Pastry
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          {/* Tab Filter Kategori */}
+          <div className="flex justify-center items-center gap-3 mb-12">
+            {["All", "Drinks", "Cakes"].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
+                  selectedCategory === cat
+                    ? "bg-[#3C4A22] text-[#F9F8F3] shadow-md shadow-[#3C4A22]/10"
+                    : "bg-[#F9F8F3] text-[#3C4A22] hover:bg-[#3C4A22]/5"
+                }`}
+              >
+                {cat === "All"
+                  ? "Semua Menu"
+                  : cat === "Drinks"
+                    ? "Minuman Segar"
+                    : "Kue & Pastry"}
+              </button>
+            ))}
+          </div>
 
           {/* Grid Menu Dinamis */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredMenu.map((item, index) => (
-              <Card key={index} className="bg-[#F9F8F3]/40 border-[#3C4A22]/5 rounded-3xl flex flex-col justify-between overflow-hidden hover:bg-white hover:shadow-xl hover:shadow-[#3C4A22]/5 hover:-translate-y-1 transition-all duration-300 group">
-                <CardHeader className="p-6 pb-0 space-y-4">
-                  {/* UPDATE: Menggantikan placeholder teks dengan tag <img> asli */}
-                  <div className="w-full aspect-[4/3] bg-[#3C4A22]/5 rounded-2xl overflow-hidden relative shadow-inner">
-                    <img 
-                      src={item.image} 
-                      alt={item.name} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+              <div
+                key={index}
+                className="bg-[#F9F8F3]/40 border border-[#3C4A22]/5 rounded-3xl p-6 space-y-4 hover:bg-white hover:shadow-xl hover:shadow-[#3C4A22]/5 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  <div className="w-full aspect-[4/3] bg-[#3C4A22]/5 rounded-2xl flex items-center justify-center text-[#3C4A22]/40 font-bold text-xs group-hover:bg-[#879B54]/10 group-hover:text-[#4C5E2D] transition-colors">
+                    [ 🍵 Foto {item.name} ]
                   </div>
                   <div className="space-y-1.5">
-                    <div>
-                      <Badge variant="secondary" className="bg-[#3C4A22]/5 text-[#4C5E2D] text-[10px] font-bold px-2 py-0.5 rounded-md hover:bg-[#3C4A22]/5">
-                        {item.tag}
-                      </Badge>
-                    </div>
-                    <CardTitle className="font-serif font-bold text-lg text-[#3C4A22]">
+                    <span className="text-[10px] bg-[#3C4A22]/5 text-[#4C5E2D] font-bold px-2 py-0.5 rounded-md">
+                      {item.tag}
+                    </span>
+                    <h4 className="font-serif font-bold text-lg text-[#3C4A22]">
                       {item.name}
-                    </CardTitle>
-                    <CardDescription className="text-xs text-[#3C4A22]/60 leading-relaxed">
+                    </h4>
+                    <p className="text-xs text-[#3C4A22]/60 leading-relaxed">
                       {item.desc}
-                    </CardDescription>
+                    </p>
                   </div>
-                </CardHeader>
-                <CardFooter className="p-6 pt-4 flex justify-between items-center border-t border-[#3C4A22]/5 mt-4">
+                </div>
+                <div className="pt-4 flex justify-between items-center border-t border-[#3C4A22]/5 mt-4">
                   <span className="font-mono font-bold text-[#3C4A22] text-sm">
                     {item.price}
                   </span>
                   {item.isBestSeller && (
-                    <Badge className="bg-amber-100 text-amber-800 text-[10px] font-bold border-none hover:bg-amber-100">
+                    <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-md font-bold">
                       Terlaris 🔥
-                    </Badge>
+                    </span>
                   )}
-                </CardFooter>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -398,7 +389,7 @@ export default function GuestLanding() {
                 onSubmit={handleClaimVoucher}
                 className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 pt-4"
               >
-                <Input
+                <input
                   type="text"
                   required
                   placeholder="Nama lengkap Anda"
@@ -407,23 +398,23 @@ export default function GuestLanding() {
                     setNameInput(e.target.value);
                     setReviewName(e.target.value);
                   }}
-                  className="bg-white text-[#3C4A22] h-12 rounded-xl text-sm border-none placeholder:text-gray-400 focus-visible:ring-[#879B54]"
+                  className="w-full px-5 py-3.5 bg-white text-[#3C4A22] rounded-xl outline-none text-sm border-none"
                 />
-                <Input
+                <input
                   type="email"
                   required
                   placeholder="Alamat email aktif"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
-                  className="bg-white text-[#3C4A22] h-12 rounded-xl text-sm border-none placeholder:text-gray-400 focus-visible:ring-[#879B54]"
+                  className="w-full px-5 py-3.5 bg-white text-[#3C4A22] rounded-xl outline-none text-sm border-none"
                 />
-                <Button
+                <button
                   type="submit"
-                  className="h-12 px-6 bg-[#879B54] text-white font-bold text-sm rounded-xl whitespace-nowrap hover:bg-[#9cb363] shadow-md flex items-center justify-center gap-2"
+                  className="px-6 py-3.5 bg-[#879B54] text-white font-bold text-sm rounded-xl whitespace-nowrap hover:bg-[#9cb363] transition-all duration-200 shadow-md flex items-center justify-center gap-2 active:scale-95"
                 >
                   <span>Klaim Kode</span>
                   <AiOutlineArrowRight />
-                </Button>
+                </button>
               </form>
             ) : (
               <div className="max-w-md mx-auto p-5 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-2xl text-sm font-medium">
@@ -445,98 +436,96 @@ export default function GuestLanding() {
         className="bg-[#3C4A22]/5 py-24 border-t border-[#3C4A22]/5"
       >
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          <Card className="lg:col-span-5 bg-white p-2 rounded-[32px] border-[#3C4A22]/5 shadow-xl">
-            <CardHeader className="space-y-1">
+          <div className="lg:col-span-5 bg-white p-8 rounded-[32px] border border-[#3C4A22]/5 shadow-xl space-y-6">
+            <div className="space-y-1">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#879B54] uppercase tracking-wider">
                 <AiOutlineMessage className="text-sm" /> CRM Feedback Hub
               </div>
-              <CardTitle className="text-2xl font-serif font-black text-[#3C4A22]">
+              <h3 className="text-2xl font-serif font-black text-[#3C4A22]">
                 Bagikan Pengalaman Anda
-              </CardTitle>
-              <CardDescription className="text-xs text-[#3C4A22]/60 leading-relaxed">
+              </h3>
+              <p className="text-xs text-[#3C4A22]/60 leading-relaxed">
                 Kritik dan saran Anda langsung masuk ke sistem dashboard
                 manajemen kami untuk peningkatan kualitas layanan menu.
-              </CardDescription>
-            </CardHeader>
+              </p>
+            </div>
 
-            <CardContent>
-              {!reviewSubmitted ? (
-                <form onSubmit={handleSubmitReview} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#3C4A22]/70 mb-1.5">
-                      Nama Kamu
-                    </label>
-                    <Input
-                      type="text"
-                      required
-                      placeholder="Contoh: Amel Matcha"
-                      value={reviewName}
-                      onChange={(e) => setReviewName(e.target.value)}
-                      className="bg-[#F9F8F3] border-[#3C4A22]/10 rounded-xl text-sm focus-visible:ring-[#879B54] text-[#3C4A22]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#3C4A22]/70 mb-1.5">
-                      Rating Menu
-                    </label>
-                    <div className="flex gap-2">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          type="button"
-                          key={star}
-                          onClick={() => setReviewRating(star)}
-                          className="text-xl transition-transform active:scale-90"
-                        >
-                          <AiFillStar
-                            className={
-                              star <= reviewRating
-                                ? "text-amber-400"
-                                : "text-gray-200"
-                            }
-                          />
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#3C4A22]/70 mb-1.5">
-                      Ulasan / Cerita
-                    </label>
-                    <Textarea
-                      rows="3"
-                      required
-                      placeholder="Bagaimana rasa minuman atau cake yang kamu pesan?"
-                      value={reviewText}
-                      onChange={(e) => setReviewText(e.target.value)}
-                      className="bg-[#F9F8F3] border-[#3C4A22]/10 rounded-xl text-sm focus-visible:ring-[#879B54] text-[#3C4A22] placeholder:text-gray-400"
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-[#3C4A22] text-[#F9F8F3] font-bold text-sm rounded-xl hover:bg-[#4C5E2D]"
-                  >
-                    Kirim Ulasan Premium
-                  </Button>
-                </form>
-              ) : (
-                <div className="p-6 bg-[#879B54]/10 rounded-2xl text-center space-y-3">
-                  <p className="text-sm font-bold text-[#3C4A22]">
-                    ✨ Terima kasih atas ulasan berharganya!
-                  </p>
-                  <p className="text-xs text-[#3C4A22]/70">
-                    Feedback berhasil direkam ke dalam basis data analitik
-                    kepuasan CRM BloomBites.
-                  </p>
-                  <button
-                    onClick={() => setReviewSubmitted(false)}
-                    className="text-xs font-bold text-[#879B54] underline hover:text-[#3C4A22]"
-                  >
-                    Kirim Ulasan Lain
-                  </button>
+            {!reviewSubmitted ? (
+              <form onSubmit={handleSubmitReview} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#3C4A22]/70 mb-1.5">
+                    Nama Kamu
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Contoh: Amel Matcha"
+                    value={reviewName}
+                    onChange={(e) => setReviewName(e.target.value)}
+                    className="w-full px-4 py-3 bg-[#F9F8F3] border border-[#3C4A22]/10 rounded-xl outline-none text-sm focus:ring-2 focus:ring-[#879B54] text-[#3C4A22]"
+                  />
                 </div>
-              )}
-            </CardContent>
-          </Card>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#3C4A22]/70 mb-1.5">
+                    Rating Menu
+                  </label>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        type="button"
+                        key={star}
+                        onClick={() => setReviewRating(star)}
+                        className="text-xl transition-transform active:scale-90"
+                      >
+                        <AiFillStar
+                          className={
+                            star <= reviewRating
+                              ? "text-amber-400"
+                              : "text-gray-200"
+                          }
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#3C4A22]/70 mb-1.5">
+                    Ulasan / Cerita
+                  </label>
+                  <textarea
+                    rows="3"
+                    required
+                    placeholder="Bagaimana rasa minuman atau cake yang kamu pesan?"
+                    value={reviewText}
+                    onChange={(e) => setReviewText(e.target.value)}
+                    className="w-full px-4 py-3 bg-[#F9F8F3] border border-[#3C4A22]/10 rounded-xl outline-none text-sm focus:ring-2 focus:ring-[#879B54] text-[#3C4A22] placeholder:text-gray-400"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3.5 bg-[#3C4A22] text-[#F9F8F3] font-bold text-sm rounded-xl hover:bg-[#4C5E2D] transition-all duration-200 flex items-center justify-center gap-2"
+                >
+                  Kirim Ulasan Premium
+                </button>
+              </form>
+            ) : (
+              <div className="p-6 bg-[#879B54]/10 rounded-2xl text-center space-y-3">
+                <p className="text-sm font-bold text-[#3C4A22]">
+                  ✨ Terima kasih atas ulasan berharganya!
+                </p>
+                <p className="text-xs text-[#3C4A22]/70">
+                  Feedback berhasil direkam ke dalam basis data analitik
+                  kepuasan CRM BloomBites.
+                </p>
+                <button
+                  onClick={() => setReviewSubmitted(false)}
+                  className="text-xs font-bold text-[#879B54] underline hover:text-[#3C4A22]"
+                >
+                  Kirim Ulasan Lain
+                </button>
+              </div>
+            )}
+          </div>
 
           <div className="lg:col-span-7 space-y-6">
             <span className="text-xs font-bold text-[#879B54] uppercase tracking-widest">
@@ -547,35 +536,36 @@ export default function GuestLanding() {
             </h3>
             <div className="space-y-4 max-h-[420px] overflow-y-auto pr-2">
               {reviews.map((rev, i) => (
-                <Card key={i} className="bg-white border-[#3C4A22]/5 shadow-sm rounded-2xl transition-all duration-300 hover:shadow-md">
-                  <CardContent className="p-5 space-y-2.5">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-bold text-sm text-[#3C4A22]">
-                          {rev.name}
-                        </h4>
-                        <div className="flex gap-0.5 text-xs text-amber-400 mt-0.5">
-                          {Array.from({ length: rev.rating }).map((_, s) => (
-                            <AiFillStar key={s} />
-                          ))}
-                        </div>
+                <div
+                  key={i}
+                  className="bg-white p-5 rounded-2xl border border-[#3C4A22]/5 shadow-sm space-y-2.5 transition-all duration-300 hover:shadow-md"
+                >
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h4 className="font-bold text-sm text-[#3C4A22]">
+                        {rev.name}
+                      </h4>
+                      <div className="flex gap-0.5 text-xs text-amber-400 mt-0.5">
+                        {Array.from({ length: rev.rating }).map((_, s) => (
+                          <AiFillStar key={s} />
+                        ))}
                       </div>
-                      <span className="text-[10px] text-gray-400 font-mono">
-                        {rev.date}
-                      </span>
                     </div>
-                    <p className="text-xs text-[#3C4A22]/70 leading-relaxed italic">
-                      "{rev.text}"
-                    </p>
-                  </CardContent>
-                </Card>
+                    <span className="text-[10px] text-gray-400 font-mono">
+                      {rev.date}
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#3C4A22]/70 leading-relaxed italic">
+                    "{rev.text}"
+                  </p>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 🙋‍♂️ INTERACTIVE FAQ SECTION (Shadcn Accordion) */}
+      {/* 🙋‍♂️ INTERACTIVE FAQ SECTION (LENGKAP 4 PERTANYAAN) */}
       <section id="faq" className="bg-white py-24">
         <div className="max-w-4xl mx-auto px-6 space-y-12">
           <div className="text-center space-y-2">
@@ -591,8 +581,7 @@ export default function GuestLanding() {
             </p>
           </div>
 
-          {/* Penggunaan Shadcn UI Accordion Primitif */}
-          <Accordion type="single" collapsible className="w-full space-y-3">
+          <div className="space-y-3">
             {[
               {
                 q: "Bagaimana cara menukarkan Voucher Diskon 15%?",
@@ -600,7 +589,7 @@ export default function GuestLanding() {
               },
               {
                 q: "Apakah data email saya aman di ekosistem CRM BloomBites?",
-                a: "Keamanan privasi Anda adalah prioritas kami. Data nama and email yang didaftarkan murni digunakan untuk enkripsi pelacakan poin rewards belanja kebaikan Anda, penawaran promo ulang tahun otomatis, serta tidak akan pernah dibagikan ke pihak ketiga.",
+                a: "Keamanan privasi Anda adalah prioritas kami. Data nama dan email yang didaftarkan murni digunakan untuk enkripsi pelacakan poin rewards belanja kebaikan Anda, penawaran promo ulang tahun otomatis, serta tidak akan pernah dibagikan ke pihak ketiga.",
               },
               {
                 q: "Apakah satu email bisa digunakan untuk klaim beberapa kupon?",
@@ -611,20 +600,32 @@ export default function GuestLanding() {
                 a: "Untuk saat ini, sistem riwayat belanja tercatat penuh secara internal pada aplikasi admin kasir kami. Staf kasir kami dengan senang hati dapat mencetakkan atau mengirimkan rangkuman poin loyalitas bulanan langsung ke email terdaftar Anda.",
               },
             ].map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="border border-[#3C4A22]/10 rounded-2xl overflow-hidden px-2 data-[state=open]:bg-[#F9F8F3]/20"
+              <div
+                key={index}
+                className="border border-[#3C4A22]/10 rounded-2xl overflow-hidden transition-colors"
               >
-                <AccordionTrigger className="px-4 py-4 text-sm font-bold text-[#3C4A22] hover:no-underline hover:text-[#879B54] [&>svg]:text-xs [&>svg]:text-[#3C4A22]/60">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 text-xs text-[#3C4A22]/75 leading-relaxed bg-white/50 rounded-b-xl">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full px-6 py-4 bg-[#F9F8F3]/50 hover:bg-[#F9F8F3] text-left flex justify-between items-center transition-colors group"
+                >
+                  <span className="text-sm font-bold text-[#3C4A22] group-hover:text-[#879B54] transition-colors">
+                    {faq.q}
+                  </span>
+                  <AiOutlineDown
+                    className={`text-xs text-[#3C4A22]/60 transition-transform duration-300 ${activeFaq === index ? "transform rotate-180 text-[#879B54]" : ""}`}
+                  />
+                </button>
+
+                <div
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${activeFaq === index ? "max-h-[200px] border-t border-[#3C4A22]/5" : "max-h-0"}`}
+                >
+                  <div className="p-6 text-xs text-[#3C4A22]/75 leading-relaxed bg-white">
+                    {faq.a}
+                  </div>
+                </div>
+              </div>
             ))}
-          </Accordion>
+          </div>
         </div>
       </section>
 

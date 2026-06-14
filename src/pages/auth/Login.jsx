@@ -24,8 +24,9 @@ export default function Login() {
       
       setMessage({ type: "success", text: `Selamat datang kembali, ${user.username || 'User'}! 👋` });
       
+      // 🔥 HANYA BARIS INI YANG DIUBAH: Diarahkan langsung ke /admin
       setTimeout(() => {
-        navigate("/");
+        navigate("/admin");
       }, 1000);
     } catch (err) {
       setMessage({ type: "error", text: err.message || "Email atau password salah!" });

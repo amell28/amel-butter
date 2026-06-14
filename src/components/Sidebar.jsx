@@ -253,7 +253,7 @@ export default function Sidebar() {
         <div className="mb-6">
           <SectionLabel>Main Menu</SectionLabel>
           <NavItem
-            to="/"
+            to="/admin"
             end
             icon={<DashIcon />}
             label="Dashboard"

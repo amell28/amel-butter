@@ -7,7 +7,7 @@
     "brand": "GreenLeaf",
     "price": 35000,
     "stock": 25,
-    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+    "image": "https://images.unsplash.com/photo-1582785513054-8d1bf9d69c1a?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "brand": "GreenLeaf",
     "price": 36000,
     "stock": 30,
-    "image": "https://images.unsplash.com/photo-1617196037303-7f3c6c1a9d2a"
+    "image": "https://images.unsplash.com/photo-1717398804998-ad2d48822518?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
     "id": 3,
@@ -27,7 +27,7 @@
     "brand": "CafeZen",
     "price": 40000,
     "stock": 20,
-    "image": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+    "image": "https://images.unsplash.com/photo-1625280495212-0721e1099f9e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
     "id": 4,
@@ -47,7 +47,7 @@
     "brand": "TeaHouse",
     "price": 30000,
     "stock": 40,
-    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+    "image": "https://lovemischka.com/wp-content/uploads/2022/10/FT-Matcha-Latte-Recipe-Hot-768x768.jpg"
   },
   {
     "id": 6,
@@ -57,7 +57,7 @@
     "brand": "TeaHouse",
     "price": 45000,
     "stock": 15,
-    "image": "https://images.unsplash.com/photo-1617196037303-7f3c6c1a9d2a"
+    "image": "https://www.ohhowcivilized.com/wp-content/uploads/matcha-smoothie-recipe.jpg"
   },
   {
     "id": 7,
@@ -67,7 +67,7 @@
     "brand": "FreshBrews",
     "price": 38000,
     "stock": 22,
-    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+    "image": "https://changesparksjoy.com/wp-content/uploads/2025/04/matcha-lemonade-recipe.webp"
   },
   {
     "id": 8,
@@ -77,7 +77,7 @@
     "brand": "FreshBrews",
     "price": 37000,
     "stock": 28,
-    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+    "image": "https://allwaysdelicious.com/wp-content/uploads/2023/01/matcha-milk-tea-3-1025x1536.jpg"
   },
   {
     "id": 9,
@@ -87,7 +87,7 @@
     "brand": "SweetLeaf",
     "price": 50000,
     "stock": 12,
-    "image": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+    "image": "https://www.sweetsteep.com/wp-content/uploads/2024/03/matcha-affogato-recipe-5.jpg"
   },
   {
     "id": 10,
@@ -97,7 +97,7 @@
     "brand": "SweetLeaf",
     "price": 55000,
     "stock": 10,
-    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+    "image": "https://www.just4recipes.com/wp-content/uploads/2024/09/Matcha_Cheesecake.png"
   },
   {
     "id": 11,
@@ -107,7 +107,7 @@
     "brand": "SweetLeaf",
     "price": 45000,
     "stock": 14,
-    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+    "image": "https://bakingwhiz.com/wp-content/uploads/2025/09/matcha-brownies-fudgy-squares.jpg"
   },
   {
     "id": 12,
@@ -117,7 +117,7 @@
     "brand": "BakeHouse",
     "price": 32000,
     "stock": 16,
-    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+    "image": "https://tastypleasure.com/wp-content/uploads/2025/07/MATCHA-CROISSANT-1.webp"
   },
   {
     "id": 13,
@@ -127,7 +127,7 @@
     "brand": "BakeHouse",
     "price": 30000,
     "stock": 20,
-    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+    "image": "https://hamiltonbeach.com/media/recipes/matcha-muffins-1.jpg"
   },
   {
     "id": 14,
@@ -137,7 +137,7 @@
     "brand": "BakeHouse",
     "price": 28000,
     "stock": 25,
-    "image": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+    "image": "https://www.tashasartisanfoods.com/blog/wp-content/uploads/2022/06/The-Best-Matcha-Donuts-10.jpg"
   },
   {
     "id": 15,
@@ -147,7 +147,7 @@
     "brand": "SweetLeaf",
     "price": 40000,
     "stock": 18,
-    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+    "image": "https://timeofrecipes.com/wp-content/uploads/2025/05/Matcha-Green-Tea-Pancakes-.webp"
   },
   {
     "id": 16,
@@ -157,7 +157,7 @@
     "brand": "SweetLeaf",
     "price": 35000,
     "stock": 20,
-    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+    "image": "https://sugaryums.com/wp-content/uploads/2023/06/Matcha-Ice-Cream-Recipe-SugarYums-12.jpg"
   },
   {
     "id": 17,
@@ -167,7 +167,7 @@
     "brand": "SweetLeaf",
     "price": 48000,
     "stock": 12,
-    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+    "image": "https://dirtydishesmessykisses.com/wp-content/uploads/2024/11/matcha-parfait-recipe-1731208688.jpg"
   },
   {
     "id": 18,
@@ -177,7 +177,7 @@
     "brand": "SweetLeaf",
     "price": 33000,
     "stock": 22,
-    "image": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f"
+    "image": "https://thefruityjem.com/wp-content/uploads/2025/02/matcha-green-tea-pudding-jelly-1024x1024.jpg"
   },
   {
     "id": 19,
@@ -187,7 +187,7 @@
     "brand": "BakeHouse",
     "price": 42000,
     "stock": 15,
-    "image": "https://images.unsplash.com/photo-1607082349566-7a5f8a9b9d2a"
+    "image": "https://tse4.mm.bing.net/th/id/OIP.kFXwOPwwb-RkPneBfzwx9gHaHa?pid=Api&P=0&h=180"
   },
   {
     "id": 20,
@@ -197,7 +197,7 @@
     "brand": "BakeHouse",
     "price": 39000,
     "stock": 18,
-    "image": "https://images.unsplash.com/photo-1621377086841-2d6a1e7f9b3a"
+    "image": "https://www.jasminkitchen.com/wp-content/uploads/2025/12/no-bake_vegan_matcha_tart_1.png"
   },
   {
     "id": 21,
@@ -207,6 +207,6 @@
     "brand": "BakeHouse",
     "price": 31000,
     "stock": 20,
-    "image": "https://images.unsplash.com/photo-1584270354949-1f7c5e6f3e1d"
+    "image": "https://www.selenarecipes.com/wp-content/uploads/2026/02/nnkb4ubgzasgq0sm56ap.webp"
   }
 ]

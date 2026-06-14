@@ -17,6 +17,9 @@ const CustomerDetail = lazy(() => import("./pages/CustomerDetail"));
 const Loyalty = lazy(() => import("./pages/Loyalty"));
 const User = lazy(() => import("./pages/User"));
 
+// Import Lazy untuk Halaman Guest CRM Baru
+const GuestLanding = lazy(() => import("./pages/GuestLanding"));
+
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
 const Forgot = lazy(() => import("./pages/auth/Forgot"));
@@ -25,7 +28,6 @@ const MainLayout = lazy(() => import("./layouts/MainLayout"));
 const AuthLayout = lazy(() => import("./layouts/AuthLayout"));
 
 // --- 🛡️ PROTECTED ROUTE COMPONENT ---
-// Mengecek apakah data user ada di localStorage
 const ProtectedRoute = ({ children }) => {
   const user = localStorage.getItem("user");
   if (!user) {
@@ -39,14 +41,23 @@ function App() {
     <Suspense fallback={<Loading />}>
       <Routes>
 
-        {/* 🔑 Auth Layout Group */}
+        {/* ================= ZONA GUEST (BUKA PERTAMA KALI) ================= */}
+        <Route path="/" element={<GuestLanding />} />
+
+
+        {/* ================= ZONA AUTHENTICATION ================= */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Forgot />} />
         </Route>
 
-        {/* 🍵 Main Layout Group (Protected) */}
+
+        {/* ================= ZONA ADMIN MANAGEMENTS ================= */}
+        {/* 
+          Di bawah ini adalah grup Admin. 
+          Semua rute di dalamnya diwajibkan melewati ProtectedRoute (Cek login).
+        */}
         <Route 
           element={
             <ProtectedRoute>
@@ -54,7 +65,10 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/" element={<Dashboard />} />
+          {/* 🔥 INI DIA: Akses khusus `/admin` langsung ngebuka Dashboard Admin */}
+          <Route path="/admin" element={<Dashboard />} />
+          
+          {/* Sisa halaman admin lainnya tetap menggunakan path asli bawaan kamu */}
           <Route path="/user" element={<User />} />
 
           {/* Customers */}
