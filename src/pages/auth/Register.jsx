@@ -4,7 +4,14 @@ import { authAPI } from "../../services/authAPI";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [dataForm, setDataForm] = useState({ username: "", email: "", password: "", confirmPassword: "" });
+  // Menambahkan properti "role" dengan nilai default "member" ke dalam dataForm
+  const [dataForm, setDataForm] = useState({ 
+    username: "", 
+    email: "", 
+    password: "", 
+    confirmPassword: "",
+    role: "member" 
+  });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" }); // Notifikasi State
 
@@ -25,7 +32,13 @@ export default function Register() {
     }
 
     try {
-      await authAPI.register(dataForm.email, dataForm.password, dataForm.username);
+      // Mengirimkan parameter role ke fungsi registrasi API
+      await authAPI.register(
+        dataForm.email, 
+        dataForm.password, 
+        dataForm.username, 
+        dataForm.role
+      );
       setMessage({ type: "success", text: "Akun berhasil dibuat! Mengalihkan... 🥳" });
       
       setTimeout(() => {
@@ -63,7 +76,7 @@ export default function Register() {
             value={dataForm.username}
             onChange={handleChange}
             required
-            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none"
+            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#879b54]/20 focus:border-[#879b54]"
             placeholder="johndoe"
           />
         </div>
@@ -76,9 +89,24 @@ export default function Register() {
             value={dataForm.email}
             onChange={handleChange}
             required
-            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none"
+            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#879b54]/20 focus:border-[#879b54]"
             placeholder="you@example.com"
           />
+        </div>
+
+        {/* 🔑 INPUT SELEKSI ROLE BARU */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Daftar Sebagai (Role)</label>
+          <select
+            name="role"
+            value={dataForm.role}
+            onChange={handleChange}
+            required
+            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#879b54]/20 focus:border-[#879b54] cursor-pointer"
+          >
+            <option value="member">Customer / Member Loyal</option>
+            <option value="staff">Staff Outlet / Admin</option>
+          </select>
         </div>
 
         <div>
@@ -89,7 +117,7 @@ export default function Register() {
             value={dataForm.password}
             onChange={handleChange}
             required
-            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none"
+            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#879b54]/20 focus:border-[#879b54]"
             placeholder="••••••••"
           />
         </div>
@@ -102,7 +130,7 @@ export default function Register() {
             value={dataForm.confirmPassword}
             onChange={handleChange}
             required
-            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none"
+            className="block w-full px-4 py-3.5 border border-gray-200 rounded-xl bg-gray-50/50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#879b54]/20 focus:border-[#879b54]"
             placeholder="••••••••"
           />
         </div>
@@ -111,7 +139,7 @@ export default function Register() {
           <button
             disabled={loading}
             type="submit"
-            className="w-full flex justify-center py-3.5 px-4 rounded-xl text-base font-semibold text-white bg-[#879b54] hover:bg-[#738645] disabled:opacity-50"
+            className="w-full flex justify-center py-3.5 px-4 rounded-xl text-base font-semibold text-white bg-[#879b54] hover:bg-[#738645] disabled:opacity-50 cursor-pointer transition-colors"
           >
             {loading ? "Registering..." : "Register"}
           </button>

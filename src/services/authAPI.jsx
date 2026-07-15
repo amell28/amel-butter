@@ -13,9 +13,9 @@ const headers = {
 }
 
 export const authAPI = {
-    // 1. CREATE (Register)
-    async register(email, password, username) {
-        const response = await axios.post(API_URL, { email, password, username }, { headers })
+    // 1. CREATE (Register) - Ditambahkan parameter 'role' dengan default value 'member'
+    async register(email, password, username, role = "member") {
+        const response = await axios.post(API_URL, { email, password, username, role }, { headers })
         return response.data
     },
 

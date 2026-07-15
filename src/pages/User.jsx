@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { authAPI } from "../services/authAPI";
 import { AiOutlinePlus, AiOutlineReload } from "react-icons/ai";
 
-// 1. Import Komponen Shadcn UI (Pastikan sudah di-install di project-mu)
+// 1. Import Komponen Shadcn UI
 import {
   Table,
   TableBody,
@@ -31,10 +31,10 @@ export default function User() {
 
   // State Modal Shadcn UI
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [newUser, setNewUser] = useState({ username: "", email: "", password: "" });
+  const [newUser, setNewUser] = useState({ username: "", email: "", password: "", role: "member" });
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState({ id: "", username: "", email: "" });
+  const [editingUser, setEditingUser] = useState({ id: "", username: "", email: "", role: "member" });
 
   // 1. READ
   const fetchUsers = async () => {
@@ -57,13 +57,14 @@ export default function User() {
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authAPI.register(newUser.email, newUser.password, newUser.username);
+      // Mengirimkan parameter role ke API register
+      await authAPI.register(newUser.email, newUser.password, newUser.username, newUser.role);
       setMessage({
         type: "success",
-        text: `User "${newUser.username}" berhasil ditambahkan!`,
+        text: `User "${newUser.username}" dengan role "${newUser.role}" berhasil ditambahkan!`,
       });
       setIsCreateModalOpen(false);
-      setNewUser({ username: "", email: "", password: "" });
+      setNewUser({ username: "", email: "", password: "", role: "member" });
       fetchUsers();
     } catch (err) {
       setMessage({ type: "error", text: "Gagal menambahkan user baru." });
@@ -92,6 +93,7 @@ export default function User() {
       id: user.id,
       username: user.username || "",
       email: user.email,
+      role: user.role || "member", // Default ke member jika null
     });
     setIsEditModalOpen(true);
   };
@@ -100,9 +102,11 @@ export default function User() {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Mengirimkan data perubahan termasuk role baru ke database
       await authAPI.updateUser(editingUser.id, {
         username: editingUser.username,
         email: editingUser.email,
+        role: editingUser.role,
       });
       setMessage({
         type: "success",
@@ -112,6 +116,18 @@ export default function User() {
       fetchUsers();
     } catch (err) {
       setMessage({ type: "error", text: "Gagal memperbarui data user." });
+    }
+  };
+
+  // Helper styling warna badge berdasarkan role
+  const getRoleBadge = (role) => {
+    switch (role?.toLowerCase()) {
+      case "admin":
+        return <Badge className="bg-red-100 text-red-800 border-red-200 hover:bg-red-100 uppercase text-[10px] font-bold">Admin</Badge>;
+      case "staff":
+        return <Badge className="bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-100 uppercase text-[10px] font-bold">Staff</Badge>;
+      default:
+        return <Badge className="bg-green-100 text-green-800 border-green-200 hover:bg-green-100 uppercase text-[10px] font-bold">Member</Badge>;
     }
   };
 
@@ -127,10 +143,9 @@ export default function User() {
         </div>
 
         <div className="flex items-center gap-3 self-start sm:self-center">
-          {/* Button Shadcn */}
           <Button
             onClick={() => setIsCreateModalOpen(true)}
-            className="bg-[#879b54] hover:bg-[#738645] text-white rounded-xl gap-2 shadow-sm transition-all active:scale-95"
+            className="bg-[#879b54] hover:bg-[#738645] text-white rounded-xl gap-2 shadow-sm transition-all active:scale-95 border-none cursor-pointer"
           >
             <AiOutlinePlus className="text-base" />
             Tambah User Baru
@@ -139,7 +154,7 @@ export default function User() {
           <Button
             variant="outline"
             onClick={fetchUsers}
-            className="rounded-xl gap-2 border-gray-200 shadow-sm transition-all active:scale-95"
+            className="rounded-xl gap-2 border-gray-200 shadow-sm transition-all active:scale-95 cursor-pointer"
           >
             <AiOutlineReload className="text-base text-muted-foreground" />
             Refresh
@@ -172,7 +187,7 @@ export default function User() {
         </Alert>
       )}
 
-      {/* Tabel Utama Menggunakan Table Shadcn */}
+      {/* Tabel Utama */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         {loading ? (
           <div className="p-12 text-center text-muted-foreground font-medium">
@@ -186,9 +201,10 @@ export default function User() {
           <Table>
             <TableHeader className="bg-gray-50/70">
               <TableRow>
-                <TableHead className="w-[250px] px-6 py-4 font-bold uppercase tracking-wider text-[11px]">ID</TableHead>
+                <TableHead className="w-[200px] px-6 py-4 font-bold uppercase tracking-wider text-[11px]">ID</TableHead>
                 <TableHead className="px-6 py-4 font-bold uppercase tracking-wider text-[11px]">Username</TableHead>
                 <TableHead className="px-6 py-4 font-bold uppercase tracking-wider text-[11px]">Email Address</TableHead>
+                <TableHead className="px-6 py-4 font-bold uppercase tracking-wider text-[11px] text-center">Role</TableHead>
                 <TableHead className="px-6 py-4 font-bold uppercase tracking-wider text-[11px] text-center">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -202,12 +218,15 @@ export default function User() {
                     {user.username || "-"}
                   </TableCell>
                   <TableCell className="px-6 py-4 text-gray-600">{user.email}</TableCell>
+                  <TableCell className="px-6 py-4 text-center">
+                    {getRoleBadge(user.role)}
+                  </TableCell>
                   <TableCell className="px-6 py-4 text-center space-x-3 whitespace-nowrap">
                     <Button
                       variant="secondary"
                       size="sm"
                       onClick={() => openEditModal(user)}
-                      className="bg-[#879b54]/10 text-[#738645] hover:bg-[#879b54]/20 rounded-lg text-xs font-bold shadow-none"
+                      className="bg-[#879b54]/10 text-[#738645] hover:bg-[#879b54]/20 rounded-lg text-xs font-bold shadow-none border-none cursor-pointer"
                     >
                       ✏️ Edit
                     </Button>
@@ -215,7 +234,7 @@ export default function User() {
                       variant="destructive"
                       size="sm"
                       onClick={() => handleDelete(user.id, user.username)}
-                      className="bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-bold shadow-none border-none"
+                      className="bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-bold shadow-none border-none cursor-pointer"
                     >
                       🗑️ Hapus
                     </Button>
@@ -235,7 +254,7 @@ export default function User() {
               Tambah User Baru
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              Masukkan data akun untuk pelanggan baru.
+              Masukkan data akun dan hak akses peran (role) untuk user baru.
             </DialogDescription>
           </DialogHeader>
 
@@ -276,18 +295,31 @@ export default function User() {
               />
             </div>
 
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-500">Role Pengguna</label>
+              <select
+                value={newUser.role}
+                onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
+                className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-[#879b54] focus:ring-offset-2"
+              >
+                <option value="member">Member (Pelanggan)</option>
+                <option value="staff">Staff (Kasir/Barista)</option>
+                <option value="admin">Admin (Pengelola)</option>
+              </select>
+            </div>
+
             <DialogFooter className="flex gap-3 pt-4 sm:justify-start">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => setIsCreateModalOpen(false)}
-                className="w-1/2 py-3 border-gray-200 text-gray-500 rounded-xl font-semibold"
+                className="w-1/2 py-3 border-gray-200 text-gray-500 rounded-xl font-semibold cursor-pointer"
               >
                 Batal
               </Button>
               <Button
                 type="submit"
-                className="w-1/2 py-3 bg-[#879b54] hover:bg-[#738645] text-white rounded-xl font-semibold"
+                className="w-1/2 py-3 bg-[#879b54] hover:bg-[#738645] text-white rounded-xl font-semibold border-none cursor-pointer"
               >
                 Tambah Akun
               </Button>
@@ -331,18 +363,31 @@ export default function User() {
               />
             </div>
 
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-500">Role Pengguna</label>
+              <select
+                value={editingUser.role}
+                onChange={(e) => setEditingUser({ ...editingUser, role: e.target.value })}
+                className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-[#879b54] focus:ring-offset-2"
+              >
+                <option value="member">Member (Pelanggan)</option>
+                <option value="staff">Staff (Kasir/Barista)</option>
+                <option value="admin">Admin (Pengelola)</option>
+              </select>
+            </div>
+
             <DialogFooter className="flex gap-3 pt-4 sm:justify-start">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => setIsEditModalOpen(false)}
-                className="w-1/2 py-3 border-gray-200 text-gray-500 rounded-xl font-semibold"
+                className="w-1/2 py-3 border-gray-200 text-gray-500 rounded-xl font-semibold cursor-pointer"
               >
                 Batal
               </Button>
               <Button
                 type="submit"
-                className="w-1/2 py-3 bg-[#879b54] hover:bg-[#738645] text-white rounded-xl font-semibold"
+                className="w-1/2 py-3 bg-[#879b54] hover:bg-[#738645] text-white rounded-xl font-semibold border-none cursor-pointer"
               >
                 Simpan Perubahan
               </Button>

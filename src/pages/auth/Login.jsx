@@ -6,7 +6,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [dataForm, setDataForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: "", text: "" }); // Notifikasi State
+  const [message, setMessage] = useState({ type: "", text: "" }); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,9 +24,13 @@ export default function Login() {
       
       setMessage({ type: "success", text: `Selamat datang kembali, ${user.username || 'User'}! 👋` });
       
-      // 🔥 HANYA BARIS INI YANG DIUBAH: Diarahkan langsung ke /admin
+      // Pembagian rute langsung berdasarkan role admin dan member
       setTimeout(() => {
-        navigate("/admin");
+        if (user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/"); // Ke halaman utama jika rolenya member
+        }
       }, 1000);
     } catch (err) {
       setMessage({ type: "error", text: err.message || "Email atau password salah!" });

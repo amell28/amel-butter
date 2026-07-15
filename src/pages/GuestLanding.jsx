@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Users,
@@ -25,7 +25,13 @@ import {
   Compass,
   Phone,
   Gift,
-  UserPlus
+  UserPlus,
+  LogOut,
+  User,
+  Percent,
+  Receipt,
+  Tag,
+  Copy
 } from "lucide-react";
 
 // 🎨 Theme Colors aligned with Matcha House & Dessert Cafe
@@ -45,6 +51,92 @@ const C = {
 
 export default function GuestLanding() {
   const navigate = useNavigate();
+
+  // --- LOGIC AUTH MEMBER & CRM ---
+  const [member, setMember] = useState(null);
+  const [copiedCode, setCopiedCode] = useState("");
+
+  // Data Dummy Riwayat Pesanan (Spesifik per member)
+  const [orderHistory, setOrderHistory] = useState([
+    {
+      id: "TX-998231",
+      date: "14 Juli 2026",
+      items: "1x Signature Uji Matcha Latte, 1x Matcha Mille Crepes",
+      total: 77000,
+      pointsEarned: 77,
+      status: "Selesai",
+    },
+    {
+      id: "TX-995412",
+      date: "08 Juli 2026",
+      items: "2x Matcha Espresso Fusion",
+      total: 76000,
+      pointsEarned: 76,
+      status: "Selesai",
+    },
+    {
+      id: "TX-100412",
+      date: "Hari Ini (Baru saja)",
+      items: "1x Uji Matcha Tiramisu",
+      total: 45000,
+      pointsEarned: 45,
+      status: "Sedang Disiapkan 🍵",
+    }
+  ]);
+
+  // Data Promo Eksklusif Member
+  const exclusivePromos = [
+    {
+      code: "MATCHA-MONDAY",
+      title: "Matcha Monday Mania",
+      desc: "Diskon 25% khusus hari Senin untuk semua varian Matcha Latte.",
+      tag: "Diskon 25%"
+    },
+    {
+      code: "BOGO-CREPES",
+      title: "Buy 1 Get 1 Crepes",
+      desc: "Beli 1 Matcha Mille Crepes dapat gratis 1 Cup Ice Cream Matcha.",
+      tag: "Buy 1 Get 1"
+    },
+    {
+      code: "VIP-ESCAPE",
+      title: "VIP Room Bundle Deal",
+      desc: "Reservasi area VIP Room minimal 4 Pax gratis 1 teko Genmaicha Tea.",
+      tag: "Free Genmaicha"
+    }
+  ];
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        if (parsedUser && parsedUser.role === "member") {
+          setMember(parsedUser);
+          setBookingName(parsedUser.username || "");
+          setBookingEmail(parsedUser.email || "");
+        }
+      } catch (e) {
+        console.error("Gagal membaca session user", e);
+      }
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setMember(null);
+    window.location.reload(); 
+  };
+
+  const copyToClipboard = (code) => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(code);
+    setTimeout(() => setCopiedCode(""), 2000);
+  };
+  // -------------------------
+
+  // State CRM - Simulasi Kalkulator Poin Mandiri
+  const [inputBelanja, setInputBelanja] = useState(150000);
 
   // State CRM - Reservasi Meja (Table Booking)
   const [bookingName, setBookingName] = useState("");
@@ -92,10 +184,14 @@ export default function GuestLanding() {
   // State untuk FAQ Accordion
   const [activeFaq, setActiveFaq] = useState(null);
 
+  const toggleFaq = (index) => {
+    setActiveFaq(activeFaq === index ? null : index);
+  };
+
   // State untuk Menu yang Sedang Disimulasikan Diskonnya
   const [selectedSimulationMenu, setSelectedSimulationMenu] = useState(null);
 
-  // Data Menu Favorit Matcha (Dengan Foto Real dari Folder Public)
+  // Data Menu Favorit Matcha
   const matchaFavorites = [
     {
       id: "uji-latte",
@@ -194,22 +290,44 @@ export default function GuestLanding() {
           {/* Nav links */}
           <div className="hidden md:flex items-center gap-8 text-xs font-bold text-[#7D746F]">
             <a href="#menu-favorites" className="hover:text-[#3E2723] transition-colors">Menu Favorit</a>
+            {member && <a href="#member-promos" className="hover:text-[#3E2723] text-emerald-700 transition-colors">🎁 Promo Spesial</a>}
             <a href="#loyalty" className="hover:text-[#3E2723] transition-colors">Loyalty Program</a>
-            <a href="#claim-voucher" className="hover:text-[#3E2723] transition-colors">Kupon Diskon</a>
+            {member && <a href="#order-history" className="hover:text-[#3E2723] transition-colors">Riwayat Pesanan</a>}
             <a href="#booking" className="hover:text-[#3E2723] transition-colors">Reservasi Meja</a>
             <a href="#reviews" className="hover:text-[#3E2723] transition-colors">Ulasan</a>
-            <a href="#faq" className="hover:text-[#3E2723] transition-colors">FAQ</a>
           </div>
 
-          {/* CTA & Staff Portal */}
+          {/* Dinamis Login Section */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => navigate("/login")}
-              className="px-4 py-2 text-xs font-bold transition-all duration-200 border rounded-xl hover:bg-white cursor-pointer"
-              style={{ borderColor: C.borderCream, color: C.coffee }}
-            >
-              Portal Staf
-            </button>
+            {member ? (
+              <div className="flex items-center gap-3 bg-white/80 p-1.5 pr-3 rounded-2xl border shadow-sm" style={{ borderColor: C.borderCream }}>
+                <div className="w-8 h-8 rounded-xl bg-[#6A7A40]/10 flex items-center justify-center text-[#6A7A40]">
+                  <User size={16} />
+                </div>
+                <div className="hidden sm:flex flex-col text-left">
+                  <span className="text-xs font-bold text-[#271B15]">{member.username}</span>
+                  <span className="text-[9px] font-semibold text-[#879B54] uppercase tracking-wider">
+                    🥉 Silver Member • 35 Pts
+                  </span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  title="Logout"
+                  className="p-1.5 rounded-lg text-red-500 hover:bg-red-50 transition-colors border-0 cursor-pointer"
+                >
+                  <LogOut size={14} />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className="px-4 py-2 text-xs font-bold transition-all duration-200 border rounded-xl hover:bg-white cursor-pointer"
+                style={{ borderColor: C.borderCream, color: C.coffee }}
+              >
+                Sign In
+              </button>
+            )}
+
             <a
               href="#booking"
               className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-xl text-white shadow-md hover:brightness-110 transition-all duration-200"
@@ -228,22 +346,42 @@ export default function GuestLanding() {
           
           {/* Hero Content */}
           <div className="space-y-6 lg:col-span-7">
-            <div 
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
-              style={{ backgroundColor: `${C.matchaBright}1A`, color: C.matcha }}
-            >
-              <Sparkles size={12} />
-              <span>Authentic Japanese Uji Matcha & Specialty Coffee</span>
-            </div>
+            {member ? (
+              <div 
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-100"
+              >
+                <Sparkles size={12} className="text-emerald-600" />
+                <span>Selamat Datang Kembali, {member.username}! 🌿</span>
+              </div>
+            ) : (
+              <div 
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                style={{ backgroundColor: `${C.matchaBright}1A`, color: C.matcha }}
+              >
+                <Sparkles size={12} />
+                <span>Authentic Japanese Uji Matcha & Specialty Coffee</span>
+              </div>
+            )}
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-black leading-[1.15]">
-              Sentuhan Kelembutan <br />
-              <span style={{ color: C.matcha }} className="italic font-normal">Matcha Kyoto</span> <br />
-              di Setiap Gigitan.
-            </h1>
+            {member ? (
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-black leading-[1.15]">
+                Hai, <span style={{ color: C.matcha }} className="italic font-normal">{member.username}</span> <br />
+                Poin & Promo Spesial <br />Siap Digunakan!
+              </h1>
+            ) : (
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-black leading-[1.15]">
+                Sentuhan Kelembutan <br />
+                <span style={{ color: C.matcha }} className="italic font-normal">Matcha Kyoto</span> <br />
+                di Setiap Gigitan.
+              </h1>
+            )}
             
             <p className="text-xs sm:text-sm leading-relaxed max-w-xl" style={{ color: C.softGray }}>
-              Menghadirkan harmoni rasa otentik dari perkebunan teh Uji di Kyoto. Nikmati kesegaran racikan Matcha Latte, perpaduan unik Matcha Espresso, dan kelembutan lapisan kue Mille Crepes premium kami di ruang kafe ternyaman.
+              {member ? (
+                `Ayo kumpulkan terus poin transaksimu untuk naik tingkat! Kamu sekarang punya 35 Poin. Nikmati berbagai promo eksklusif gratis khusus member di bawah ini.`
+              ) : (
+                `Menghadirkan harmoni rasa otentik dari perkebunan teh Uji di Kyoto. Nikmati kesegaran racikan Matcha Latte, perpaduan unik Matcha Espresso, dan kelembutan lapisan kue Mille Crepes premium kami di ruang kafe.`
+              )}
             </p>
             
             <div className="flex flex-wrap gap-4 pt-2">
@@ -252,60 +390,37 @@ export default function GuestLanding() {
                 className="px-8 py-3.5 text-white font-bold rounded-xl text-xs shadow-lg hover:brightness-110 transition-all duration-200 text-center"
                 style={{ backgroundColor: C.coffee }}
               >
-                Reservasi Tempat Sekarang
+                {member ? "Pesan Meja Favoritmu" : "Reservasi Tempat Sekarang"}
               </a>
-              <a
-                href="#menu-favorites"
-                className="px-8 py-3.5 bg-white border font-bold rounded-xl text-xs hover:bg-gray-50 transition-all duration-200 text-center"
-                style={{ borderColor: C.borderCream }}
-              >
-                Jelajahi Menu Utama
-              </a>
-            </div>
-
-            {/* Cafe Attributes */}
-            <div className="pt-6 border-t border-dashed" style={{ borderColor: C.borderCream }}>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-emerald-50 text-emerald-700">
-                    <CheckCircle2 size={16} />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase">100% Organik Uji Matcha</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-emerald-50 text-emerald-700">
-                    <CheckCircle2 size={16} />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase">Artisanal Bakery</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-emerald-50 text-emerald-700">
-                    <CheckCircle2 size={16} />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase">Cozy Dining Space</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-emerald-50 text-emerald-700">
-                    <CheckCircle2 size={16} />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase">Integrated Loyalty</span>
-                </div>
-              </div>
+              {member ? (
+                <a
+                  href="#member-promos"
+                  className="px-8 py-3.5 bg-emerald-600 border border-emerald-500 text-white font-bold rounded-xl text-xs hover:bg-emerald-700 transition-all duration-200 text-center shadow-md"
+                >
+                  Gunakan Promo Member
+                </a>
+              ) : (
+                <a
+                  href="#loyalty"
+                  className="px-8 py-3.5 bg-white border font-bold rounded-xl text-xs hover:bg-gray-50 transition-all duration-200 text-center"
+                  style={{ borderColor: C.borderCream }}
+                >
+                  Lihat Skema Poin & Member
+                </a>
+              )}
             </div>
           </div>
 
-          {/* Hero Featured Card (Kyoto Vibe) */}
+          {/* Hero Featured Card */}
           <div className="lg:col-span-5 relative flex justify-center">
             <div 
               className="w-full max-w-[350px] aspect-[4/5] rounded-[40px] rounded-tl-[100px] shadow-2xl relative overflow-hidden flex flex-col justify-end p-8 text-white group border border-[#EAE4D9]/20"
             >
-              {/* Background Image of Matcha Mille Crepes */}
               <img 
                 src="/matcha_mille_crepes.png" 
                 alt="Matcha Mille Crepes"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              {/* Dark Gradient Overlay for optimal readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10"></div>
               
               <div className="absolute top-6 left-6 bg-black/40 backdrop-blur-md rounded-2xl p-4 border border-white/10 text-white w-48 space-y-1 z-10">
@@ -334,50 +449,77 @@ export default function GuestLanding() {
         </div>
       </section>
 
-      {/* 🧭 3. FEATURED GALLERY / INFO CARDS */}
-      <section className="max-w-7xl mx-auto px-6 pb-20 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-2xl border flex gap-4 items-start shadow-sm" style={{ borderColor: C.borderCream }}>
-          <div className="p-3 rounded-xl" style={{ backgroundColor: `${C.matcha}1A`, color: C.matcha }}>
-            <Clock className="text-xl" size={20} />
-          </div>
-          <div>
-            <h5 className="font-bold text-xs">Jam Operasional Kafe</h5>
-            <p className="text-[11px] mt-1" style={{ color: C.softGray }}>
-              Setiap Hari (Senin - Minggu)<br />Pukul 09:00 - 22:00 WIB
-            </p>
-          </div>
-        </div>
-        
-        <div className="bg-white p-6 rounded-2xl border flex gap-4 items-start shadow-sm" style={{ borderColor: C.borderCream }}>
-          <div className="p-3 rounded-xl" style={{ backgroundColor: `${C.matcha}1A`, color: C.matcha }}>
-            <Compass className="text-xl" size={20} />
-          </div>
-          <div>
-            <h5 className="font-bold text-xs">Lokasi House Matcha</h5>
-            <p className="text-[11px] mt-1" style={{ color: C.softGray }}>
-              Jl. Matcha Raya No. 28, Jakarta<br />(Tersedia Parkir Luas & Wi-Fi)
-            </p>
-          </div>
-        </div>
+      {/* 🎁 3. PROMO EKSKLUSIF MEMBER (HANYA MUNCUL JIKA SUDAH LOGIN) */}
+      {member && (
+        <section id="member-promos" className="py-16 bg-emerald-50/50 border-y border-emerald-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-emerald-800">
+                  <Tag size={14} />
+                  <span>Exclusive Member Rewards</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-serif font-black text-emerald-950">
+                  Promo Spesial Menantimu, {member.username}!
+                </h2>
+              </div>
+              <span className="text-xs font-semibold text-emerald-700 bg-emerald-100/70 px-4 py-1.5 rounded-full">
+                Tier: 🥉 Silver Member Benefit
+              </span>
+            </div>
 
-        <div className="bg-white p-6 rounded-2xl border flex gap-4 items-start shadow-sm" style={{ borderColor: C.borderCream }}>
-          <div className="p-3 rounded-xl" style={{ backgroundColor: `${C.matcha}1A`, color: C.matcha }}>
-            <Smartphone className="text-xl" size={20} />
-          </div>
-          <div>
-            <h5 className="font-bold text-xs">Ikuti Media Sosial Kami</h5>
-            <p className="text-[11px] mt-1" style={{ color: C.softGray }}>
-              Instagram: @bloombites.matcha<br />Dapatkan info promo mingguan
-            </p>
-          </div>
-        </div>
-      </section>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {exclusivePromos.map((promo, idx) => (
+                <div 
+                  key={idx} 
+                  className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm relative overflow-hidden flex flex-col justify-between"
+                >
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-[9px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">
+                        {promo.tag}
+                      </span>
+                      <span className="text-[10px] text-gray-400 font-mono">Exp: 30 Des 2026</span>
+                    </div>
+                    <div className="space-y-1.5">
+                      <h4 className="font-serif font-bold text-base text-emerald-950">{promo.title}</h4>
+                      <p className="text-xs text-gray-500 leading-relaxed">{promo.desc}</p>
+                    </div>
+                  </div>
 
-      {/* 🍵 4. FAVORIT MENU SECTION WITH REAL IMAGES & LOYALTY PRICING */}
+                  <div className="pt-5 mt-5 border-t border-dashed border-gray-100 flex items-center justify-between">
+                    <div className="bg-[#FAF7F2] border border-[#EAE4D9] px-3 py-2 rounded-xl font-mono text-xs font-bold text-gray-800">
+                      {promo.code}
+                    </div>
+                    <button
+                      onClick={() => copyToClipboard(promo.code)}
+                      className="inline-flex items-center gap-1.5 px-3 py-2 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-[10px] font-bold transition-all cursor-pointer border-0"
+                    >
+                      {copiedCode === promo.code ? (
+                        <>
+                          <Check size={12} />
+                          <span>Tersalin!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={12} />
+                          <span>Salin Kode</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 🍵 4. FAVORIT MENU SECTION */}
       <section id="menu-favorites" className="py-20 bg-white border-y" style={{ borderColor: C.borderCream }}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#6A7A40]" style={{ color: C.matcha }}>
+            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.matcha }}>
               Menu Matcha Terlaris
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-black">
@@ -405,7 +547,6 @@ export default function GuestLanding() {
                   }}
                 >
                   <div className="space-y-4">
-                    {/* Real Generated Image */}
                     <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-sm border" style={{ borderColor: C.borderCream }}>
                       <img
                         src={item.image}
@@ -454,7 +595,7 @@ export default function GuestLanding() {
           {/* Interactive CRM Loyalty Calculator Panel */}
           {selectedSimulationMenu && (
             <div 
-              className="bg-[#FAF7F2] rounded-[32px] p-6 md:p-8 border-2 shadow-lg max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center"
+              className="bg-[#FAF7F2] rounded-[32px] p-6 md:p-8 border-2 shadow-lg max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center"
               style={{ borderColor: C.borderCream }}
             >
               {/* Product Info Thumbnail */}
@@ -486,41 +627,53 @@ export default function GuestLanding() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                   {/* Silver */}
-                  <div className="bg-white p-4 rounded-2xl border" style={{ borderColor: C.borderCream }}>
+                  <div className="bg-white p-3 rounded-2xl border" style={{ borderColor: C.borderCream }}>
                     <div className="flex justify-between items-center">
-                      <span className="text-[9px] font-bold text-slate-500 uppercase">🥈 Silver Member</span>
-                      <span className="text-[8px] bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-bold">Diskon 5%</span>
+                      <span className="text-[9px] font-bold text-slate-500 uppercase">🥈 Silver</span>
+                      <span className="text-[8px] bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-bold">5%</span>
                     </div>
-                    <p className="text-sm font-black mt-2 text-slate-800">
+                    <p className="text-xs font-black mt-2 text-slate-850">
                       {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(selectedSimulationMenu.price * 0.95)}
                     </p>
-                    <p className="text-[9px] text-slate-500 mt-1">Dapatkan {Math.floor(selectedSimulationMenu.price * 0.95 / 1000)} Poin</p>
+                    <p className="text-[9px] text-slate-500 mt-1">+{Math.floor(selectedSimulationMenu.price * 0.95 / 1000)} Pts</p>
                   </div>
 
                   {/* Gold */}
-                  <div className="bg-white p-4 rounded-2xl border-2" style={{ borderColor: C.matchaBright }}>
+                  <div className="bg-white p-3 rounded-2xl border" style={{ borderColor: C.borderCream }}>
                     <div className="flex justify-between items-center">
-                      <span className="text-[9px] font-bold text-amber-700 uppercase">🥇 Gold Member</span>
-                      <span className="text-[8px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Diskon 10%</span>
+                      <span className="text-[9px] font-bold text-amber-700 uppercase">🥇 Gold</span>
+                      <span className="text-[8px] bg-amber-100 text-amber-800 px-1 py-0.5 rounded font-bold">10%</span>
                     </div>
-                    <p className="text-sm font-black mt-2 text-amber-950">
+                    <p className="text-xs font-black mt-2 text-amber-950">
                       {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(selectedSimulationMenu.price * 0.90)}
                     </p>
-                    <p className="text-[9px] text-amber-700 mt-1">Dapatkan {Math.floor(selectedSimulationMenu.price * 0.90 / 1000)} Poin</p>
+                    <p className="text-[9px] text-amber-700 mt-1">+{Math.floor(selectedSimulationMenu.price * 0.90 / 1000)} Pts</p>
                   </div>
 
                   {/* Platinum */}
-                  <div className="bg-white p-4 rounded-2xl border" style={{ borderColor: C.borderCream }}>
+                  <div className="bg-white p-3 rounded-2xl border" style={{ borderColor: C.borderCream }}>
                     <div className="flex justify-between items-center">
-                      <span className="text-[9px] font-bold text-purple-700 uppercase">💎 Platinum VIP</span>
-                      <span className="text-[8px] bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded font-bold">Diskon 15%</span>
+                      <span className="text-[9px] font-bold text-purple-700 uppercase">💎 Plat.</span>
+                      <span className="text-[8px] bg-purple-100 text-purple-800 px-1 py-0.5 rounded font-bold">15%</span>
                     </div>
-                    <p className="text-sm font-black mt-2 text-purple-950">
+                    <p className="text-xs font-black mt-2 text-purple-950">
                       {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(selectedSimulationMenu.price * 0.85)}
                     </p>
-                    <p className="text-[9px] text-purple-700 mt-1">Dapatkan {Math.floor(selectedSimulationMenu.price * 0.85 / 1000)} Poin</p>
+                    <p className="text-[9px] text-purple-700 mt-1">+{Math.floor(selectedSimulationMenu.price * 0.85 / 1000)} Pts</p>
+                  </div>
+
+                  {/* Diamond Black Card */}
+                  <div className="bg-neutral-900 p-3 rounded-2xl border-2 border-amber-400 text-white">
+                    <div className="flex justify-between items-center">
+                      <span className="text-[8px] font-black text-amber-400 uppercase tracking-widest">👑 Diamond</span>
+                      <span className="text-[8px] bg-amber-400 text-neutral-900 px-1 py-0.5 rounded font-bold">20%</span>
+                    </div>
+                    <p className="text-xs font-black mt-2 text-amber-300">
+                      {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(selectedSimulationMenu.price * 0.80)}
+                    </p>
+                    <p className="text-[8px] text-amber-400/80 mt-1">+{Math.floor(selectedSimulationMenu.price * 0.80 / 1000)} Pts</p>
                   </div>
                 </div>
 
@@ -546,69 +699,207 @@ export default function GuestLanding() {
         </div>
       </section>
 
-      {/* 🏅 5. CRM LOYALTY BENEFIT CARD GRID */}
+      {/* 🏅 5. TINGKATAN MEMBER / TIER DETAIL */}
       <section id="loyalty" className="py-20 max-w-7xl mx-auto px-6">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.matcha }}>
-            Program Keanggotaan
+            Program Keanggotaan Baru
           </span>
           <h2 className="text-3xl sm:text-4xl font-serif font-black">
-            Kumpulkan Poin, Dapatkan Keuntungan Eksklusif
+            Kumpulkan Poin, Tingkatkan Keuntungan Anda
           </h2>
           <p className="text-sm" style={{ color: C.softGray }}>
-            Setiap pembelian kelipatan Rp 1.000 akan mendapatkan 1 Poin. Tukarkan poin Anda dengan menu favorit gratis.
+            Setiap pembelanjaan senilai Rp 1.000 setara dengan 1 Poin. Semakin banyak poin terkumpul, semakin tinggi tier keanggotaan dan keuntungan yang didapat.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* 4 Tier Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* Silver */}
-          <div className="bg-white p-8 rounded-3xl border border-t-4 space-y-4 shadow-sm" style={{ borderColor: C.borderCream, borderTopColor: C.softGray }}>
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7D746F]">🥈 Tier Awal</span>
-            <h3 className="text-lg font-bold">Silver Member</h3>
-            <p className="text-xs leading-relaxed" style={{ color: C.softGray }}>
-              Daftarkan email Anda dan dapatkan potongan harga tetap 5% untuk setiap transaksi menu makanan dan minuman.
-            </p>
-            <ul className="text-xs space-y-2 pt-2 text-[#7D746F]">
-              <li className="flex items-center gap-2">✓ Potongan harga 5%</li>
-              <li className="flex items-center gap-2">✓ Akumulasi 1 poin per Rp 1.000</li>
-              <li className="flex items-center gap-2">✓ Struk digital terkirim ke email</li>
-            </ul>
+          <div className="bg-white p-6 rounded-3xl border border-t-4 space-y-4 shadow-sm flex flex-col justify-between" style={{ borderColor: C.borderCream, borderTopColor: C.softGray }}>
+            <div className="space-y-3">
+              <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#7D746F]">🥈 Tier 1 (0 - 199 Pts)</span>
+              <h3 className="text-base font-bold text-gray-800">Silver Member</h3>
+              <p className="text-[11px] leading-relaxed" style={{ color: C.softGray }}>
+                Dapatkan otomatis setelah mendaftar. Keuntungan dasar yang ramah untuk mengawali petualangan matcha-mu.
+              </p>
+              <ul className="text-[10px] space-y-2 pt-2 text-[#7D746F] border-t border-dashed" style={{ borderColor: C.borderCream }}>
+                <li className="flex items-center gap-1.5">✓ Diskon flat <strong>5%</strong></li>
+                <li className="flex items-center gap-1.5">✓ Reward Spesial Ulang Tahun</li>
+                <li className="flex items-center gap-1.5">✓ 1 Poin per Rp 1.000 belanja</li>
+              </ul>
+            </div>
+            <div className="pt-4 text-center">
+              <span className="text-[9px] font-black uppercase text-slate-500 bg-slate-50 px-3 py-1 rounded-full">Member Baru</span>
+            </div>
           </div>
 
           {/* Gold */}
-          <div className="bg-white p-8 rounded-3xl border-2 space-y-4 shadow-md relative" style={{ borderColor: C.matchaBright }}>
-            <span className="absolute -top-3 right-6 bg-[#879B54] text-white px-3 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-wide">Terpopuler</span>
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-700">🥇 Tier Menengah</span>
-            <h3 className="text-lg font-bold">Gold Member</h3>
-            <p className="text-xs leading-relaxed" style={{ color: C.softGray }}>
-              Naik tingkat secara otomatis setelah mengumpulkan 200 poin. Nikmati potongan harga 10% dan antrean prioritas.
-            </p>
-            <ul className="text-xs space-y-2 pt-2 text-[#7D746F]">
-              <li className="flex items-center gap-2">✓ Potongan harga 10%</li>
-              <li className="flex items-center gap-2">✓ Voucher gratis croissant saat ultah</li>
-              <li className="flex items-center gap-2">✓ Info promo eksklusif lebih awal</li>
-            </ul>
+          <div className="bg-white p-6 rounded-3xl border border-t-4 space-y-4 shadow-sm flex flex-col justify-between" style={{ borderColor: C.borderCream, borderTopColor: C.matcha }}>
+            <div className="space-y-3">
+              <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#879B54]">🥇 Tier 2 (200 - 499 Pts)</span>
+              <h3 className="text-base font-bold text-gray-800">Gold Member</h3>
+              <p className="text-[11px] leading-relaxed" style={{ color: C.softGray }}>
+                Batas kenyamanan baru bagi penikmat matcha rutin. Keuntungan diskon yang terasa lebih hemat di dompet.
+              </p>
+              <ul className="text-[10px] space-y-2 pt-2 text-[#7D746F] border-t border-dashed" style={{ borderColor: C.borderCream }}>
+                <li className="flex items-center gap-1.5">✓ Diskon flat <strong>10%</strong></li>
+                <li className="flex items-center gap-1.5">✓ Prioritas antrean reservasi meja</li>
+                <li className="flex items-center gap-1.5">✓ Akses promo <i>Pre-Sale</i> mingguan</li>
+              </ul>
+            </div>
+            <div className="pt-4 text-center">
+              <span className="text-[9px] font-black uppercase text-amber-700 bg-amber-50 px-3 py-1 rounded-full">Upgrade 200 Pts</span>
+            </div>
           </div>
 
           {/* Platinum */}
-          <div className="bg-white p-8 rounded-3xl border border-t-4 space-y-4 shadow-sm" style={{ borderColor: C.borderCream, borderTopColor: C.coffee }}>
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-purple-700">💎 Tier Tertinggi</span>
-            <h3 className="text-lg font-bold">Platinum VIP</h3>
-            <p className="text-xs leading-relaxed" style={{ color: C.softGray }}>
-              Batas kenyamanan maksimal setelah mengumpulkan 500 poin. Potongan harga 15% dan prioritas reservasi meja VIP.
-            </p>
-            <ul className="text-xs space-y-2 pt-2 text-[#7D746F]">
-              <li className="flex items-center gap-2">✓ Potongan harga 15%</li>
-              <li className="flex items-center gap-2">✓ Reservasi area VIP prioritas</li>
-              <li className="flex items-center gap-2">✓ Undangan sesi matcha tasting gratis</li>
-            </ul>
+          <div className="bg-white p-6 rounded-3xl border border-t-4 space-y-4 shadow-sm flex flex-col justify-between" style={{ borderColor: C.borderCream, borderTopColor: C.coffee }}>
+            <div className="space-y-3">
+              <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#5D4037]">💎 Tier 3 (500 - 999 Pts)</span>
+              <h3 className="text-base font-bold text-gray-800">Platinum VIP</h3>
+              <p className="text-[11px] leading-relaxed" style={{ color: C.softGray }}>
+                Apresiasi terbaik bagi pelanggan loyal yang mencintai dedikasi rasa artisanal kami.
+              </p>
+              <ul className="text-[10px] space-y-2 pt-2 text-[#7D746F] border-t border-dashed" style={{ borderColor: C.borderCream }}>
+                <li className="flex items-center gap-1.5">✓ Diskon flat <strong>15%</strong></li>
+                <li className="flex items-center gap-1.5">✓ Prioritas pemilihan area meja (window/VIP)</li>
+                <li className="flex items-center gap-1.5">✓ Gratis Upsize seluruh menu minuman</li>
+              </ul>
+            </div>
+            <div className="pt-4 text-center">
+              <span className="text-[9px] font-black uppercase text-purple-800 bg-purple-50 px-3 py-1 rounded-full">Upgrade 500 Pts</span>
+            </div>
+          </div>
+
+          {/* Diamond Black Card */}
+          <div className="bg-neutral-950 text-white p-6 rounded-3xl border-2 border-amber-400 space-y-4 shadow-xl flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-extrabold uppercase tracking-widest text-amber-400">👑 Tier VIP (1000+ Pts)</span>
+                <span className="text-[8px] bg-amber-400 text-neutral-900 font-extrabold px-1.5 py-0.5 rounded">ULTIMATE</span>
+              </div>
+              <h3 className="text-base font-serif font-bold text-amber-300">Diamond Black</h3>
+              <p className="text-[11px] text-white/70 leading-relaxed">
+                Tingkat kemewahan paling tinggi. Layanan personal khusus dan keistimewaan tanpa batas di setiap gerai.
+              </p>
+              <ul className="text-[10px] space-y-2 pt-2 text-white/80 border-t border-dashed border-white/20">
+                <li className="flex items-center gap-1.5">✓ Diskon tertinggi flat <strong>20%</strong></li>
+                <li className="flex items-center gap-1.5">✓ Undangan event <i>exclusive private tasting</i></li>
+                <li className="flex items-center gap-1.5">✓ Gratis 1 Cup Matcha sebulan sekali</li>
+              </ul>
+            </div>
+            <div className="pt-4 text-center">
+              <span className="text-[9px] font-black uppercase text-amber-300 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-300/30">Upgrade 1000 Pts</span>
+            </div>
           </div>
 
         </div>
+
+        {/* 🧮 KALKULATOR POIN INTERAKTIF */}
+        <div className="mt-12 bg-white rounded-3xl border p-8 shadow-md max-w-3xl mx-auto" style={{ borderColor: C.borderCream }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6A7A40]" style={{ color: C.matcha }}>
+                <Percent size={14} />
+                <span>Kalkulator Poin Mandiri</span>
+              </div>
+              <h4 className="text-xl font-serif font-black">Hitung Poin Belanjamu</h4>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                Rencanakan pembelianmu di BloomBites hari ini dan ketahui seberapa dekat langkahmu untuk naik ke tingkatan tier berikutnya.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-1">
+                  Nominal Rencana Belanja (Rupiah)
+                </label>
+                <input
+                  type="number"
+                  min="1000"
+                  step="1000"
+                  value={inputBelanja}
+                  onChange={(e) => setInputBelanja(Number(e.target.value))}
+                  className="w-full px-4 py-3 bg-[#FAF7F2] border border-[#EAE4D9] rounded-xl outline-none font-mono font-bold text-sm text-gray-800 focus:ring-1 focus:ring-amber-800"
+                />
+              </div>
+
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100 flex justify-between items-center">
+                <div>
+                  <span className="text-[9px] font-bold text-emerald-800 uppercase block">Estimasi Poin yang Didapat:</span>
+                  <span className="text-xs text-emerald-950 font-medium">Berdasarkan rasio Rp 1.000 = 1 Poin</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-2xl font-black text-emerald-800 font-mono">
+                    +{Math.floor(inputBelanja / 1000)}
+                  </span>
+                  <span className="block text-[9px] font-black uppercase text-emerald-700 tracking-wider">Poin</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* 🎫 6. LEAD CAPTURE - REGISTER / CLAIM WELCOME COUPON */}
+      {/* 📜 6. RIWAYAT PESANAN MEMBER (HANYA MUNCUL JIKA SUDAH LOGIN) */}
+      {member && (
+        <section id="order-history" className="py-16 bg-white border-y" style={{ borderColor: C.borderCream }}>
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="flex items-center gap-2.5 mb-8">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-800">
+                <Receipt size={20} />
+              </div>
+              <div>
+                <h2 className="text-2xl font-serif font-black">Riwayat Transaksi & Poin</h2>
+                <p className="text-xs text-gray-400">Daftar transaksi pesanan dan perolehan poin loyalitas Anda.</p>
+              </div>
+            </div>
+
+            <div className="bg-[#FAF7F2]/50 border rounded-3xl overflow-hidden shadow-sm" style={{ borderColor: C.borderCream }}>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b bg-[#FAF7F2] text-[10px] font-extrabold uppercase tracking-wider text-gray-500" style={{ borderColor: C.borderCream }}>
+                      <th className="py-4 px-6">ID Transaksi</th>
+                      <th className="py-4 px-6">Tanggal</th>
+                      <th className="py-4 px-6">Detail Pesanan</th>
+                      <th className="py-4 px-6 text-right">Poin</th>
+                      <th className="py-4 px-6 text-right">Total</th>
+                      <th className="py-4 px-6 text-center">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-xs divide-y divide-[#EAE4D9]" style={{ borderColor: C.borderCream }}>
+                    {orderHistory.map((order, idx) => (
+                      <tr key={idx} className="hover:bg-white/80 transition-colors">
+                        <td className="py-4 px-6 font-mono font-bold text-gray-700">{order.id}</td>
+                        <td className="py-4 px-6 text-gray-500 whitespace-nowrap">{order.date}</td>
+                        <td className="py-4 px-6 text-gray-600 font-medium max-w-xs truncate">{order.items}</td>
+                        <td className="py-4 px-6 text-right font-bold text-emerald-700">+{order.pointsEarned} Pts</td>
+                        <td className="py-4 px-6 text-right font-mono font-bold text-gray-800">
+                          {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(order.total)}
+                        </td>
+                        <td className="py-4 px-6 text-center">
+                          <span className={`px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider ${
+                            order.status.includes("Sedang") 
+                              ? "bg-amber-100 text-amber-800 border border-amber-200" 
+                              : "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                          }`}>
+                            {order.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 🎫 7. LEAD CAPTURE - REGISTER / CLAIM WELCOME COUPON */}
       <section id="claim-voucher" className="max-w-7xl mx-auto px-6 py-12">
         <div 
           className="rounded-[40px] p-8 md:p-16 text-white relative overflow-hidden shadow-2xl"
@@ -621,14 +912,28 @@ export default function GuestLanding() {
             
             <div className="space-y-2">
               <h2 className="text-3xl md:text-4xl font-serif font-bold tracking-tight">
-                Dapatkan Voucher Diskon 15% Anda
+                Voucher Diskon Spesial Anda
               </h2>
               <p className="text-xs md:text-sm text-white/80 max-w-md mx-auto leading-relaxed">
-                Klaim kode promosi instan untuk kunjungan pertama Anda sekaligus daftarkan diri sebagai member loyal BloomBites Matcha House.
+                {member ? "Sebagai member terdaftar, berikut adalah kupon aktif yang siap kamu klaim saat bertransaksi di kasir." : "Klaim kode promosi instan untuk kunjungan pertama Anda sekaligus daftarkan diri sebagai member loyal BloomBites Matcha House."}
               </p>
             </div>
 
-            {!isClaimed ? (
+            {/* TAMPILAN BERBEDA JIKA MEMBER SUDAH LOGIN */}
+            {member ? (
+              <div className="max-w-md mx-auto p-6 bg-white/15 backdrop-blur-md border border-white/20 text-white rounded-2xl text-xs font-medium space-y-3">
+                <p className="font-bold text-amber-300">🎉 Kupon Member Aktif</p>
+                <p>
+                  Halo <strong>{member.username}</strong>, kamu mendapatkan diskon 15% member baru. Gunakan kode berikut:
+                </p>
+                <div className="bg-white/20 py-2.5 rounded-xl font-mono text-lg font-bold tracking-widest text-white border border-white/30">
+                  MEMBER-BLOOM-15
+                </div>
+                <p className="text-[10px] text-white/70">
+                  Tunjukkan layar ini kepada kasir kami untuk memotong tagihan belanja Anda.
+                </p>
+              </div>
+            ) : !isClaimed ? (
               <form onSubmit={handleClaimVoucher} className="max-w-md mx-auto flex flex-col gap-3 pt-4">
                 <input
                   type="text"
@@ -682,7 +987,7 @@ export default function GuestLanding() {
         </div>
       </section>
 
-      {/* 📅 7. TABLE RESERVATION / BOOKING TEMPAT (CRM Touchpoint) */}
+      {/* 📅 8. TABLE RESERVATION / BOOKING TEMPAT */}
       <section id="booking" className="py-20 bg-white border-y" style={{ borderColor: C.borderCream }}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -715,8 +1020,8 @@ export default function GuestLanding() {
                     <CheckCircle2 size={16} />
                   </div>
                   <div>
-                    <h5 className="font-bold text-xs">Prioritas Loyalty Gold & Platinum</h5>
-                    <p className="text-[11px] text-gray-500">Member dengan tier Gold dan Platinum VIP berhak memilih posisi meja prioritas (dekat jendela/taman).</p>
+                    <h5 className="font-bold text-xs">Prioritas Loyalty Member</h5>
+                    <p className="text-[11px] text-gray-500">Member dengan tier Gold, Platinum, dan Diamond berhak memilih posisi meja prioritas (dekat jendela/taman).</p>
                   </div>
                 </div>
               </div>
@@ -729,7 +1034,7 @@ export default function GuestLanding() {
                   Formulir Reservasi Meja
                 </h3>
                 <p className="text-[11px] text-gray-500">
-                  Data Anda otomatis tercatat dalam sistem CRM kafe kami.
+                  {member ? "Data profil member Anda telah dimasukkan secara otomatis." : "Data Anda otomatis tercatat dalam sistem CRM kafe kami."}
                 </p>
               </div>
 
@@ -888,7 +1193,7 @@ export default function GuestLanding() {
         </div>
       </section>
 
-      {/* 💬 8. CUSTOMER REVIEWS (Voice of Customer) */}
+      {/* 💬 9. CUSTOMER REVIEWS */}
       <section id="reviews" className="py-20 max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
@@ -1026,102 +1331,6 @@ export default function GuestLanding() {
         </div>
       </section>
 
-      {/* 🙋‍♂️ 9. FAQ PORTAL (10 PERTANYAAN KONSUMEN KAFE) */}
-      <section id="faq" className="py-20 bg-white border-t" style={{ borderColor: C.borderCream }}>
-        <div className="max-w-4xl mx-auto px-6 space-y-12">
-          <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#B07A65]">
-              FAQ Portal
-            </span>
-            <h3 className="text-3xl font-serif font-black">
-              Pertanyaan yang Sering Diajukan
-            </h3>
-            <p className="text-sm" style={{ color: C.softGray }}>
-              Informasi lengkap seputar menu matcha, proses reservasi meja, dan keanggotaan loyalty program kafe kami.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {[
-              {
-                q: "Bagaimana cara melakukan reservasi meja di BloomBites Matcha House?",
-                a: "Anda cukup mengisi formulir di bagian 'Reservasi Meja' di atas dengan mengisi nama, nomor WhatsApp, email, tanggal kedatangan, jam, serta area meja pilihan Anda. Sistem reservasi kami akan langsung mengamankan meja dan mengirimkan konfirmasi instan."
-              },
-              {
-                q: "Apakah reservasi meja dikenakan biaya tambahan?",
-                a: "Tidak ada biaya tambahan untuk reservasi area Indoor (AC) maupun Outdoor (Garden). Namun, untuk pemesanan VIP Room, terdapat ketentuan minimum pembelanjaan makanan dan minuman yang akan dikonfirmasikan oleh tim kami."
-              },
-              {
-                q: "Bagaimana cara menjadi member dan mengumpulkan poin loyalitas?",
-                a: "Sangat mudah! Anda otomatis terdaftar sebagai member setelah melakukan reservasi online atau mengklaim voucher selamat datang di atas. Saat bertransaksi di kasir, sebutkan alamat email atau nomor HP terdaftar untuk mendapatkan poin belanja."
-              },
-              {
-                q: "Bagaimana perhitungan pengumpulan poin reward?",
-                a: "Setiap nominal pembelanjaan kelipatan Rp 1.000 di BloomBites Matcha House akan dikonversikan menjadi 1 Poin Reward CRM. Poin ini dapat dikumpulkan untuk menaikkan tier membership atau ditukarkan gratis dengan menu pilihan."
-              },
-              {
-                q: "Bagaimana cara menukarkan poin reward dengan menu gratis?",
-                a: "Anda dapat menukarkan poin saat melakukan pemesanan langsung di kasir outlet kami. Cukup beri tahu staf kasir bahwa Anda ingin menukarkan poin reward (misal: 50 poin untuk gratis 1 Signature Matcha Latte)."
-              },
-              {
-                q: "Apakah bubuk matcha yang digunakan asli dari Jepang?",
-                a: "Ya. Kami menggunakan 100% bubuk matcha organik kelas premium (ceremonial grade) yang diimpor langsung dari perkebunan teh tradisional di Uji, Kyoto, Jepang untuk memastikan rasa otentik yang khas."
-              },
-              {
-                q: "Apakah tersedia opsi susu nabati untuk menu minuman?",
-                a: "Tentu. Kami menyediakan opsi susu nabati (Oat Milk atau Almond Milk) sebagai alternatif susu sapi untuk seluruh varian minuman matcha latte kami. Cukup informasikan preferensi Anda ke kasir."
-              },
-              {
-                q: "Berapa lama masa berlaku kupon selamat datang 15%?",
-                a: "Kupon diskon 15% (WELCOME-MATCHA) untuk member baru berlaku selama 30 hari sejak tanggal klaim dilakukan dan dapat digunakan untuk satu kali transaksi di kasir."
-              },
-              {
-                q: "Apakah satu nomor HP/email bisa mendaftarkan beberapa member?",
-                a: "Satu nomor HP dan alamat email aktif hanya dapat terdaftar untuk satu profil member unik di sistem database CRM kafe kami."
-              },
-              {
-                q: "Bagaimana jika saya ingin membatalkan atau mengubah jadwal reservasi meja?",
-                a: "Anda dapat membatalkan atau mengubah jadwal reservasi dengan mengklik tautan konfirmasi di email Anda, atau menghubungi nomor layanan WhatsApp kami di +62 812-3456-7890 minimal 2 jam sebelum waktu kedatangan."
-              }
-            ].map((faq, index) => (
-              <div
-                key={index}
-                className="border rounded-2xl overflow-hidden transition-colors"
-                style={{ borderColor: C.borderCream }}
-              >
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full px-6 py-4 bg-[#FAF7F2]/50 hover:bg-[#FAF7F2] text-left flex justify-between items-center transition-colors group cursor-pointer border-0"
-                >
-                  <span className="text-xs font-bold group-hover:text-amber-900 transition-colors">
-                    {faq.q}
-                  </span>
-                  <ChevronDown
-                    size={16}
-                    className="transition-transform duration-300"
-                    style={{ 
-                      color: C.softGray,
-                      transform: activeFaq === index ? "rotate(180deg)" : "rotate(0)" 
-                    }}
-                  />
-                </button>
-
-                <div
-                  className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                    activeFaq === index ? "max-h-[250px] border-t" : "max-h-0"
-                  }`}
-                  style={{ borderColor: C.borderCream }}
-                >
-                  <div className="p-6 text-xs leading-relaxed bg-white" style={{ color: C.softGray }}>
-                    {faq.a}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* 🗺️ 10. FOOTER */}
       <footer 
         className="text-[#FAF7F2] text-xs py-16 px-6 border-t" 
@@ -1145,7 +1354,7 @@ export default function GuestLanding() {
               BloomBites Matcha House adalah kafe bertema Uji Matcha premium yang menghadirkan racikan teh artisanal tradisional Jepang dengan kenyamanan kafe modern.
             </p>
             <p className="text-[10px] text-white/40">
-              &copy; {new Date().getFullYear()} BloomBites Matcha House. All Rights Reserved.
+              &copy; 2026 BloomBites Matcha House. All Rights Reserved.
             </p>
           </div>
 
@@ -1165,7 +1374,6 @@ export default function GuestLanding() {
               <span>Buka: 09:00 - 22:00 WIB</span>
               <span>Layanan Reservasi Meja (Gratis)</span>
               <span>Pilihan Area: Indoor AC / Outdoor Garden</span>
-              <span>Kapasitas Meja VIP (Min. Spend)</span>
             </div>
           </div>
 
